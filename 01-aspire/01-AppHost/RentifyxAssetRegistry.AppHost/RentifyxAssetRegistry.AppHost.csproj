@@ -6,7 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" />
-    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\01-aspire\02-ServiceDefaults\RentifyxAssetRegistry.ServiceDefaults\RentifyxAssetRegistry.ServiceDefaults.csproj" />
