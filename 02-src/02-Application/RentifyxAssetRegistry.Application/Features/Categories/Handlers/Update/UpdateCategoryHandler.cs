@@ -47,14 +47,13 @@ public sealed class UpdateCategoryHandler(
             if (newParent is null)
                 return Error.NotFound(CategoryErrorCodes.NotFound, $"Category {request.NewParentCategoryId} not found.");
 
-            try
-            {
-                category.ReParent(newParent);
-            }
-            catch (ArgumentException ex)
-            {
-                return Error.Validation(CategoryErrorCodes.MaxDepthExceeded, ex.Message);
-            }
+            if (newParent.Id == category.Id)
+                return Error.Validation(CategoryErrorCodes.SelfParent, "A category cannot be re-parented to itself.");
+
+            if (!newParent.CanAcceptChild)
+                return Error.Validation(CategoryErrorCodes.MaxDepthExceeded, $"Cannot re-parent under a category at depth {newParent.Depth}.");
+
+            category.ReParent(newParent);
         }
 
         await repository.SaveAsync(category, ct);

@@ -1,10 +1,21 @@
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Create.Request;
 using RentifyxAssetRegistry.Domain.Common;
 using RentifyxAssetRegistry.Domain.Entities;
+using RentifyxAssetRegistry.Domain.ValueObjects;
 
 namespace RentifyxAssetRegistry.Application.Features.Assets.Mapper;
 
 public static class AssetMapper
 {
+    public static AssetEntity ToNewAsset(CreateAssetRequest request)
+        => AssetEntity.Create(
+            request.OwnerId,
+            AssetTitle.Create(request.Title),
+            AssetDescription.Create(request.Description),
+            Money.Create(request.Price),
+            request.CategoryId,
+            request.IdempotencyKey);
+
     public static CreateAssetResponse ToCreateAssetResponse(AssetEntity entity)
         => new(entity.Id, entity.Status, entity.CreatedAt);
 

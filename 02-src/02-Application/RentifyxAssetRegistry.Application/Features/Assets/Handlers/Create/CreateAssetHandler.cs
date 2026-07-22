@@ -8,7 +8,6 @@ using RentifyxAssetRegistry.Application.Features.Assets.Mapper;
 using RentifyxAssetRegistry.Domain.Constants;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Interfaces.Asset;
-using RentifyxAssetRegistry.Domain.ValueObjects;
 
 namespace RentifyxAssetRegistry.Application.Features.Assets.Handlers.Create;
 
@@ -42,17 +41,7 @@ public sealed class CreateAssetHandler(
             return Error.Forbidden(AssetErrorCodes.OwnerNotActive, "Owner is not active and cannot create assets.");
         }
 
-        AssetTitle title = AssetTitle.Create(request.Title);
-        AssetDescription description = AssetDescription.Create(request.Description);
-        Money price = Money.Create(request.Price);
-
-        AssetEntity asset = AssetEntity.Create(
-            request.OwnerId,
-            title,
-            description,
-            price,
-            request.CategoryId,
-            request.IdempotencyKey);
+        AssetEntity asset = AssetMapper.ToNewAsset(request);
 
         await repository.SaveAsync(asset, ct);
 
