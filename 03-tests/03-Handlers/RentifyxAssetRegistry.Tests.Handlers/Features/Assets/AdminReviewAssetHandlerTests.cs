@@ -49,7 +49,7 @@ public sealed class AdminReviewAssetHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_AdminRejects_StaysPendingModerationWithoutSaving()
+    public async Task HandleAsync_AdminRejects_ArchivesAndSaves()
     {
         AssetEntity asset = BuildPendingModerationAsset();
         Mock<IAssetRepository> repository = new();
@@ -60,8 +60,8 @@ public sealed class AdminReviewAssetHandlerTests
         ErrorOr<AssetModerationResponse> result = await handler.HandleAsync(new AdminReviewAssetRequest(asset.Id, false, true, "policy violation"));
 
         result.IsError.Should().BeFalse();
-        result.Value.Status.Should().Be(AssetStatus.PendingModeration);
-        repository.Verify(r => r.SaveAsync(It.IsAny<AssetEntity>(), It.IsAny<CancellationToken>()), Times.Never);
+        result.Value.Status.Should().Be(AssetStatus.Archived);
+        repository.Verify(r => r.SaveAsync(asset, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]

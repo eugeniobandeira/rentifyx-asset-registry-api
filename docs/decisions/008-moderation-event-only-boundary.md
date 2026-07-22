@@ -37,7 +37,9 @@ This ADR was referenced by name in `.specs/features/e03-f09-moderation-workflow/
 
 **Q3: Option B.** `AdminReviewAsset` (`AdminReviewAssetRequest(AssetId, Approve, IsAdmin, Reason?)`) is a standalone override, gated on caller-supplied `IsAdmin` (same temporary pattern as Categories/F-07, pending E-05's real JWT-claims wiring) and on the asset being in `PendingModeration`. It is not populated from or triggered by any event payload.
 
-**State machine implemented (`ApplyModerationVerdictHandler`):** verdict `Approved` → `AssetEntity.Publish()` (→ `Active`, raises `AssetPublished`); `Rejected`/`PendingReview` → no state change, held in `PendingModeration`, logged only (no `AssetStatus` value for "rejected" exists — plan is explicit that rejected/manual-review assets stay in `PendingModeration` with the admin notified out-of-band, not modeled as a new status). Applying a verdict to an asset not in `PendingModeration` is a no-op (idempotent replay safety, per F-09's Goals).
+**State machine implemented (`ApplyModerationVerdictHandler`):** verdict `Approved` → `AssetEntity.Publish()` (→ `Active`, raises `AssetPublished`); `Rejected` → `AssetEntity.Archive()` (→ `Archived`, terminal) — matches `rentifyx-ai-services`' own ADR-AI-004, which treats `Approved`/`Rejected` as immediate decisions requiring no human in the loop, only `PendingReview` needs one; `PendingReview` → no state change, held in `PendingModeration`, logged only, awaiting `AdminReviewAsset`. Applying a verdict to an asset not in `PendingModeration` is a no-op (idempotent replay safety, per F-09's Goals).
+
+`AdminReviewAssetHandler` mirrors this: `Approve` → `Publish()`; reject → `Archive()` — an admin's decision on a `PendingReview` case is as final as an automated `Rejected` verdict, so it gets the same terminal treatment rather than leaving the asset in `PendingModeration` indefinitely.
 
 ## Consequences
 

@@ -40,13 +40,15 @@ public sealed class AdminReviewAssetHandler(
         if (request.Approve)
         {
             asset.Publish();
-            await repository.SaveAsync(asset, ct);
             logger.LogInformation("Asset approved by admin. AssetId={AssetId}", asset.Id);
         }
         else
         {
-            logger.LogInformation("Asset rejected by admin. AssetId={AssetId} Reason={Reason}", asset.Id, request.Reason);
+            asset.Archive();
+            logger.LogInformation("Asset rejected by admin, archived. AssetId={AssetId} Reason={Reason}", asset.Id, request.Reason);
         }
+
+        await repository.SaveAsync(asset, ct);
 
         return AssetMapper.ToModerationResponse(asset);
     }

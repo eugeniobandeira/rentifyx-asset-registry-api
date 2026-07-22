@@ -39,15 +39,23 @@ public sealed class ApplyModerationVerdictHandler(
             return AssetMapper.ToModerationResponse(asset);
         }
 
-        if (request.Verdict == ModerationVerdict.Approved)
+        switch (request.Verdict)
         {
-            asset.Publish();
-            await repository.SaveAsync(asset, ct);
-            logger.LogInformation("Asset approved by moderation. AssetId={AssetId}", asset.Id);
-        }
-        else
-        {
-            logger.LogInformation("Asset held in PendingModeration. AssetId={AssetId} Verdict={Verdict}", asset.Id, request.Verdict);
+            case ModerationVerdict.Approved:
+                asset.Publish();
+                await repository.SaveAsync(asset, ct);
+                logger.LogInformation("Asset approved by moderation. AssetId={AssetId}", asset.Id);
+                break;
+
+            case ModerationVerdict.Rejected:
+                asset.Archive();
+                await repository.SaveAsync(asset, ct);
+                logger.LogInformation("Asset rejected by moderation, archived. AssetId={AssetId}", asset.Id);
+                break;
+
+            default:
+                logger.LogInformation("Asset held in PendingModeration pending manual review. AssetId={AssetId} Verdict={Verdict}", asset.Id, request.Verdict);
+                break;
         }
 
         return AssetMapper.ToModerationResponse(asset);
