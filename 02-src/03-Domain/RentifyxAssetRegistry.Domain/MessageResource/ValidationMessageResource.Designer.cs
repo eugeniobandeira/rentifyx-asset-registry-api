@@ -230,5 +230,14 @@ namespace RentifyxAssetRegistry.Domain.MessageResource {
                 return ResourceManager.GetString("CATEGORY_NAME_REQUIRED", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Price must be greater than or equal to zero..
+        /// </summary>
+        public static string PRICE_INVALID {
+            get {
+                return ResourceManager.GetString("PRICE_INVALID", resourceCulture);
+            }
+        }
     }
 }

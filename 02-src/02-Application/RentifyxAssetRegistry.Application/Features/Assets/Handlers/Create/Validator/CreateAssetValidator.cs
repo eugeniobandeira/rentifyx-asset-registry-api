@@ -21,6 +21,10 @@ public sealed class CreateAssetValidator : AbstractValidator<CreateAssetRequest>
             .NotEmpty()
                 .WithMessage(ValidationMessageResource.IDEMPOTENCY_KEY_REQUIRED);
 
+        RuleFor(x => x.Price)
+            .GreaterThanOrEqualTo(0)
+                .WithMessage(ValidationMessageResource.PRICE_INVALID);
+
         RuleFor(x => x.Title)
             .NotEmpty()
                 .WithMessage(ValidationMessageResource.TITLE_REQUIRED)

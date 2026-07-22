@@ -14,6 +14,7 @@ public sealed class CreateAssetValidatorTests
         Guid.NewGuid(),
         "Excavator CAT 320",
         "Heavy duty excavator available for rent.",
+        1000m,
         Guid.NewGuid(),
         Guid.NewGuid().ToString());
 
@@ -97,5 +98,25 @@ public sealed class CreateAssetValidatorTests
         ValidationResult result = _validator.Validate(request);
 
         result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void Validate_NegativePrice_ShouldFail()
+    {
+        CreateAssetRequest request = ValidRequest() with { Price = -1m };
+
+        ValidationResult result = _validator.Validate(request);
+
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void Validate_ZeroPrice_ShouldPass()
+    {
+        CreateAssetRequest request = ValidRequest() with { Price = 0m };
+
+        ValidationResult result = _validator.Validate(request);
+
+        result.IsValid.Should().BeTrue();
     }
 }

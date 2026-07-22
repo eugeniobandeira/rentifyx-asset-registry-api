@@ -95,4 +95,7 @@
   <data name="CATEGORY_NAME_REQUIRED" xml:space="preserve">
     <value>Category name is required.</value>
   </data>
+  <data name="PRICE_INVALID" xml:space="preserve">
+    <value>Price must be greater than or equal to zero.</value>
+  </data>
 </root>
