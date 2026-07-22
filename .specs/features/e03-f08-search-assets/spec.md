@@ -104,7 +104,7 @@ listings without knowing the exact category.
 | SRCH-13 | Edge: blank NextPageToken treated as absent | Application | Pending |
 | SRCH-14 | Public access — only Active assets returned regardless of caller | Application | Pending |
 
-**Coverage:** 14 total, 14 mapped to tasks (implicit, ≤5 files — Tasks phase skipped), 0 unmapped
+**Coverage:** 14 total, 14 mapped to tasks (implicit, ≤5 files — Tasks phase skipped), 0 unmapped. Status: Verified (2026-07-22, 12 validator tests + 5 handler tests, all green).
 
 ---
 

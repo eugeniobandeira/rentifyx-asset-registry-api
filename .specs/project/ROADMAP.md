@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M3 in progress (F-05, F-06, F-07 done) — M1 complete except DynamoDB swap (E-04), M2 complete
-**Status:** M3/F-07 Categorization (US-013) done 2026-07-22; F-05/F-06 done 2026-07-22; all split per-feature since E-04/Infrastructure doesn't exist yet
+**Current Milestone:** M3 in progress (F-05, F-06, F-07, F-08 done) — M1 complete except DynamoDB swap (E-04), M2 complete
+**Status:** M3/F-08 Search & Discovery (US-014) done 2026-07-22; F-05/F-06/F-07 done 2026-07-22; all split per-feature since E-04/Infrastructure doesn't exist yet
 
 ---
 
@@ -72,9 +72,11 @@
 
 - Admin-only `CreateCategory`/`UpdateCategory`, public `ListCategories` (caching deferred, no infra yet), re-parenting cycle prevention (ADR-AR-006) — DONE, leaf-only re-parent for now
 
-**Search & Discovery** — PLANNED
+**Search & Discovery** — DONE (US-014 done 2026-07-22, see `.specs/features/e03-f08-search-assets/spec.md`)
 
-- `SearchAssets` (category/price/keyword/pagination), GSI design, DynamoDB `contains` filter (ADR-AR-007, watch item past ~10k assets)
+- `SearchAssets` (category/price/keyword, cursor-based pagination) — DONE, always restricted to `Active` assets
+- Contract correction: `AssetSearchFilter`/`ISearchRepository` reworked from offset (`Page`/`Total`) to cursor (`NextPageToken`) pagination — DynamoDB has no native "skip N" or cheap total count
+- GSI design, DynamoDB `contains` filter implementation — still PLANNED (E-04, ADR-AR-007 watch item past ~10k assets)
 
 **Moderation Workflow** — PLANNED
 
