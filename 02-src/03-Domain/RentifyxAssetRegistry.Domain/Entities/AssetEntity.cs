@@ -11,6 +11,7 @@ public sealed class AssetEntity : AggregateRoot
     public Guid OwnerId { get; private set; }
     public AssetTitle Title { get; private set; } = null!;
     public AssetDescription Description { get; private set; } = null!;
+    public Money Price { get; private set; } = null!;
     public Guid CategoryId { get; private set; }
     public AssetStatus Status { get; private set; }
     public string IdempotencyKey { get; private set; } = null!;
@@ -25,9 +26,11 @@ public sealed class AssetEntity : AggregateRoot
         Guid ownerId,
         AssetTitle title,
         AssetDescription description,
+        Money price,
         Guid categoryId,
         string idempotencyKey)
     {
+        ArgumentNullException.ThrowIfNull(price);
         ArgumentException.ThrowIfNullOrWhiteSpace(idempotencyKey);
 
         DateTime occurredAt = DateTime.UtcNow;
@@ -38,6 +41,7 @@ public sealed class AssetEntity : AggregateRoot
             OwnerId = ownerId,
             Title = title,
             Description = description,
+            Price = price,
             CategoryId = categoryId,
             Status = AssetStatus.Draft,
             IdempotencyKey = idempotencyKey,

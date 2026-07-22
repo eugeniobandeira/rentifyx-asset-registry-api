@@ -20,6 +20,7 @@ public sealed class CreateAssetHandlerTests
         Guid.NewGuid(),
         "Excavator CAT 320",
         "Heavy duty excavator available for rent.",
+        1000m,
         Guid.NewGuid(),
         Guid.NewGuid().ToString());
 
@@ -55,6 +56,7 @@ public sealed class CreateAssetHandlerTests
             request.OwnerId,
             AssetTitle.Create(request.Title),
             AssetDescription.Create(request.Description),
+            Money.Create(request.Price),
             request.CategoryId,
             request.IdempotencyKey);
 
@@ -105,7 +107,7 @@ public sealed class CreateAssetHandlerTests
     [Fact]
     public async Task HandleAsync_InvalidRequest_ReturnsValidationErrorsWithoutTouchingRepository()
     {
-        CreateAssetRequest invalidRequest = new(Guid.Empty, "", "", Guid.Empty, "");
+        CreateAssetRequest invalidRequest = new(Guid.Empty, "", "", -1m, Guid.Empty, "");
 
         Mock<IAssetRepository> repository = new();
         Mock<IOwnerStatusValidator> ownerStatusValidator = new();

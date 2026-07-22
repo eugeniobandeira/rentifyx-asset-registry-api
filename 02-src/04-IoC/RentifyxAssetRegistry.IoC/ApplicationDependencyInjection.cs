@@ -12,6 +12,9 @@ using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Create.Validato
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload.Request;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload.Validator;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Search;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Search.Request;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Search.Validator;
 using RentifyxAssetRegistry.Application.Features.Categories;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Create;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Create.Request;
@@ -59,6 +62,9 @@ internal static class ApplicationDependencyInjection
 
         services.AddScoped<IValidator<ConfirmMediaUploadRequest>, ConfirmMediaUploadValidator>();
         services.AddScoped<IHandler<ConfirmMediaUploadRequest, ConfirmMediaUploadResponse>, ConfirmMediaUploadHandler>();
+
+        services.AddScoped<IValidator<SearchAssetsRequest>, SearchAssetsValidator>();
+        services.AddScoped<IHandler<SearchAssetsRequest, SearchAssetsResponse>, SearchAssetsHandler>();
 
         services.AddScoped<IValidator<CreateCategoryRequest>, CreateCategoryValidator>();
         services.AddScoped<IHandler<CreateCategoryRequest, CategoryResponse>, CreateCategoryHandler>();

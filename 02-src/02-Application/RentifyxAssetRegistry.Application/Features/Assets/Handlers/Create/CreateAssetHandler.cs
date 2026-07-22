@@ -44,11 +44,13 @@ public sealed class CreateAssetHandler(
 
         AssetTitle title = AssetTitle.Create(request.Title);
         AssetDescription description = AssetDescription.Create(request.Description);
+        Money price = Money.Create(request.Price);
 
         AssetEntity asset = AssetEntity.Create(
             request.OwnerId,
             title,
             description,
+            price,
             request.CategoryId,
             request.IdempotencyKey);
 

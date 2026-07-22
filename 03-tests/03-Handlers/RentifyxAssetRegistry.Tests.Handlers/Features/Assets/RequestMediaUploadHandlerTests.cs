@@ -20,6 +20,7 @@ public sealed class RequestMediaUploadHandlerTests
         ownerId,
         AssetTitle.Create("Excavator CAT 320"),
         AssetDescription.Create("Heavy duty excavator available for rent."),
+        Money.Create(1000m),
         Guid.NewGuid(),
         Guid.NewGuid().ToString());
 

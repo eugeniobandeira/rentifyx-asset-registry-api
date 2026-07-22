@@ -28,6 +28,12 @@ public static class ValidationConstants
         public const int MaxDepth = 3;
     }
 
+    public static class SearchRules
+    {
+        public const int MinPageSize = 1;
+        public const int MaxPageSize = 30;
+    }
+
     public static class MediaRules
     {
         public static readonly IReadOnlySet<string> AllowedMimeTypes = new HashSet<string>
