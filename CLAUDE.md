@@ -185,11 +185,11 @@ GitHub Actions (`ci.yml`) triggers on PRs to `main`:
 
 ## Security rules
 
-- **Never** hardcode secrets. All sensitive config comes from AWS Secrets Manager.
+- **Never** hardcode secrets. All sensitive config comes from AWS Secrets Manager, loaded via a custom `ConfigurationProvider` (see `SecretsManagerConfigurationProvider`/`AddSecretsManager()` — copied from `identity-api`'s pattern, not a DI-injected `ISecretsProvider` service; that abstraction was planned in `identity-api` but never actually built there).
 - No stack traces in error responses (`GlobalExceptionHandler` strips them).
 - Category creation/mutation is **admin-only** (ADR-AR-006).
 - File size/MIME validation happens **before** presigned URL generation, not after upload (ADR-AR-005).
-- JWT validation reuses `identity-api`'s HS256 signing key — no API Gateway JWT authorizer (ADR-AR-001).
+- JWT validation is **RS256** (asymmetric), validating against `identity-api`'s public key fetched from Secrets Manager — no API Gateway JWT authorizer (ADR-AR-001). Corrected 2026-07-22: originally documented here as HS256, but `identity-api`'s actual ADR-006 chose RS256 specifically so downstream services (like this one) can validate signatures without holding the signing secret; this repo only ever needs the public key, never a shared symmetric secret.
 
 ## Test structure conventions
 
