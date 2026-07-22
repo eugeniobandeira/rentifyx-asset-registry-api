@@ -14,4 +14,28 @@ public static class ValidationConstants
         public const int MinPageSize = 1;
         public const int MaxPageSize = 100;
     }
+
+    public static class AssetRules
+    {
+        public const int TitleMinLength = 3;
+        public const int TitleMaxLength = 100;
+        public const int DescriptionMinLength = 10;
+        public const int DescriptionMaxLength = 2000;
+    }
+
+    public static class CategoryRules
+    {
+        public const int MaxDepth = 3;
+    }
+
+    public static class MediaRules
+    {
+        public static readonly IReadOnlySet<string> AllowedMimeTypes = new HashSet<string>
+        {
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+            "video/mp4"
+        };
+    }
 }
