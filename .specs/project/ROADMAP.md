@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M3 in progress (F-05, F-06 done) — M1 complete except DynamoDB swap (E-04), M2 complete
-**Status:** M3/F-06 Media Upload Pipeline (US-012) done 2026-07-22; F-05 done 2026-07-22; both split per-feature since E-04/Infrastructure doesn't exist yet
+**Current Milestone:** M3 in progress (F-05, F-06, F-07 done) — M1 complete except DynamoDB swap (E-04), M2 complete
+**Status:** M3/F-07 Categorization (US-013) done 2026-07-22; F-05/F-06 done 2026-07-22; all split per-feature since E-04/Infrastructure doesn't exist yet
 
 ---
 
@@ -68,9 +68,9 @@
 
 - `RequestMediaUpload` (pre-validate size/MIME before presigned URL — ADR-AR-005), `ConfirmMediaUpload` — DONE
 
-**Categorization** — PLANNED
+**Categorization** — DONE (US-013 done 2026-07-22, see `.specs/features/e03-f07-categorization/spec.md`)
 
-- Admin-only `CreateCategory`/`UpdateCategory`, public cached `ListCategories`, re-parenting cycle prevention (ADR-AR-006)
+- Admin-only `CreateCategory`/`UpdateCategory`, public `ListCategories` (caching deferred, no infra yet), re-parenting cycle prevention (ADR-AR-006) — DONE, leaf-only re-parent for now
 
 **Search & Discovery** — PLANNED
 
