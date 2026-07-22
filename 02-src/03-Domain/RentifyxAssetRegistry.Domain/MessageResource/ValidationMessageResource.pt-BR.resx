@@ -59,4 +59,25 @@
   <data name="PAGE_SIZE_INVALID" xml:space="preserve">
     <value>PageSize deve estar entre {MinPageSize} e {MaxPageSize}.</value>
   </data>
+  <data name="TITLE_REQUIRED" xml:space="preserve">
+    <value>Título é obrigatório.</value>
+  </data>
+  <data name="TITLE_MIN_LENGTH" xml:space="preserve">
+    <value>O título deve ter no mínimo {MinLength} caracteres.</value>
+  </data>
+  <data name="TITLE_MAX_LENGTH" xml:space="preserve">
+    <value>O título deve ter no máximo {MaxLength} caracteres.</value>
+  </data>
+  <data name="DESCRIPTION_MIN_LENGTH" xml:space="preserve">
+    <value>A descrição deve ter no mínimo {MinLength} caracteres.</value>
+  </data>
+  <data name="OWNER_ID_REQUIRED" xml:space="preserve">
+    <value>OwnerId é obrigatório.</value>
+  </data>
+  <data name="CATEGORY_ID_REQUIRED" xml:space="preserve">
+    <value>CategoryId é obrigatório.</value>
+  </data>
+  <data name="IDEMPOTENCY_KEY_REQUIRED" xml:space="preserve">
+    <value>IdempotencyKey é obrigatório.</value>
+  </data>
 </root>

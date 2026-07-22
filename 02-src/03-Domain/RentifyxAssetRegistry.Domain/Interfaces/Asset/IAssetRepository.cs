@@ -11,4 +11,6 @@ public interface IAssetRepository :
     ISearchRepository<AssetEntity, AssetSearchFilter>
 {
     Task<IReadOnlyList<AssetEntity>> GetByOwnerAsync(Guid ownerId, CancellationToken ct = default);
+
+    Task<AssetEntity?> GetByIdempotencyKeyAsync(string idempotencyKey, CancellationToken ct = default);
 }

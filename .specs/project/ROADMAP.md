@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M1 complete (except DynamoDB swap, deferred to E-04), M2 complete → next up M3
-**Status:** M1 CI/CD gates + secrets/JWT done (2026-07-22); DynamoDB swap (D-001) intentionally deferred to E-04; M2 domain model complete (E-02, 2026-07-22)
+**Current Milestone:** M3 in progress (F-05 US-010 done) — M1 complete except DynamoDB swap (E-04), M2 complete
+**Status:** M3/F-05 Asset Creation (US-010) done 2026-07-22, split per-feature since E-04/Infrastructure doesn't exist yet; US-011 (Draft TTL) deferred to alongside E-04
 
 ---
 
@@ -58,10 +58,11 @@
 
 ### Features
 
-**Asset Creation & Idempotency** — PLANNED
+**Asset Creation & Idempotency** — PARTIALLY DONE (US-010 done 2026-07-22, see `.specs/features/e03-f05-create-asset/spec.md`)
 
-- `CreateAsset` with idempotency key check, owner-status validation, `AssetCreated` Kafka outbox publish
-- Draft TTL (30 days, ADR-AR-004)
+- `CreateAsset` with idempotency key check (`GetByIdempotencyKeyAsync`), owner-status validation — DONE
+- `AssetCreated` Kafka outbox publish — N/A here by design: handler never publishes directly, DynamoDB Streams outbox (E-04, ADR-AR-010) picks up the event already raised on the entity
+- Draft TTL (30 days, ADR-AR-004) — DEFERRED (US-011, DynamoDB TTL is an E-04 concern)
 
 **Media Upload Pipeline** — PLANNED
 

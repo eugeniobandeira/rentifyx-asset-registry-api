@@ -16,7 +16,7 @@ public sealed class GetAllExampleHandler(
     IValidator<GetAllExampleRequest> validator,
     ILogger<GetAllExampleHandler> logger) : IHandler<GetAllExampleRequest, PagedResult<ExampleEntity>>
 {
-    public async Task<ErrorOr<PagedResult<ExampleEntity>>> Handle(GetAllExampleRequest request, CancellationToken ct = default)
+    public async Task<ErrorOr<PagedResult<ExampleEntity>>> HandleAsync(GetAllExampleRequest request, CancellationToken ct = default)
     {
         logger.LogDebug("Fetching examples. Payload={@Payload}", request);
 

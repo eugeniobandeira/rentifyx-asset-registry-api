@@ -14,7 +14,7 @@ public class AssetEntityTests
         AssetTitle title = AssetTitle.Create("Excavator CAT 320");
         AssetDescription description = AssetDescription.Create("Heavy duty excavator available for rent.");
 
-        return AssetEntity.Create(Guid.NewGuid(), title, description, Guid.NewGuid());
+        return AssetEntity.Create(Guid.NewGuid(), title, description, Guid.NewGuid(), Guid.NewGuid().ToString());
     }
 
     [Fact]
@@ -25,13 +25,16 @@ public class AssetEntityTests
         AssetTitle title = AssetTitle.Create("Excavator CAT 320");
         AssetDescription description = AssetDescription.Create("Heavy duty excavator available for rent.");
 
-        AssetEntity asset = AssetEntity.Create(ownerId, title, description, categoryId);
+        string idempotencyKey = Guid.NewGuid().ToString();
+
+        AssetEntity asset = AssetEntity.Create(ownerId, title, description, categoryId, idempotencyKey);
 
         asset.Status.Should().Be(AssetStatus.Draft);
         asset.OwnerId.Should().Be(ownerId);
         asset.CategoryId.Should().Be(categoryId);
         asset.Title.Should().Be(title);
         asset.Description.Should().Be(description);
+        asset.IdempotencyKey.Should().Be(idempotencyKey);
         asset.UpdatedAt.Should().BeNull();
         asset.Id.Should().NotBeEmpty();
 
@@ -40,6 +43,17 @@ public class AssetEntityTests
         domainEvent.AssetId.Should().Be(asset.Id);
         domainEvent.OwnerId.Should().Be(ownerId);
         domainEvent.CategoryId.Should().Be(categoryId);
+    }
+
+    [Fact]
+    public void Create_NullOrWhitespaceIdempotencyKey_Throws()
+    {
+        AssetTitle title = AssetTitle.Create("Excavator CAT 320");
+        AssetDescription description = AssetDescription.Create("Heavy duty excavator available for rent.");
+
+        Action act = () => AssetEntity.Create(Guid.NewGuid(), title, description, Guid.NewGuid(), " ");
+
+        act.Should().Throw<ArgumentException>();
     }
 
     [Fact]

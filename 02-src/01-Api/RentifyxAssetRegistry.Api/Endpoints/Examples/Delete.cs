@@ -21,7 +21,7 @@ internal sealed class Delete : IEndpoint
         HttpContext httpContext,
         CancellationToken ct = default)
     {
-        ErrorOr<Deleted> result = await handler.Handle(id, ct);
+        ErrorOr<Deleted> result = await handler.HandleAsync(id, ct);
 
         return result.Match(
             _ => Results.NoContent(),
