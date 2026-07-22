@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M3 in progress (F-05, F-06, F-07, F-08 done) — M1 complete except DynamoDB swap (E-04), M2 complete
-**Status:** M3/F-08 Search & Discovery (US-014) done 2026-07-22; F-05/F-06/F-07 done 2026-07-22; all split per-feature since E-04/Infrastructure doesn't exist yet
+**Current Milestone:** M3 DONE (F-05, F-06, F-07, F-08, F-09 all done) — M1 complete except DynamoDB swap (E-04), M2 complete
+**Status:** M3/F-09 Moderation Workflow (US-015) done 2026-07-22, closing E-03; all features split per-feature since E-04/Infrastructure doesn't exist yet
 
 ---
 
@@ -78,9 +78,11 @@
 - Contract correction: `AssetSearchFilter`/`ISearchRepository` reworked from offset (`Page`/`Total`) to cursor (`NextPageToken`) pagination — DynamoDB has no native "skip N" or cheap total count
 - GSI design, DynamoDB `contains` filter implementation — still PLANNED (E-04, ADR-AR-007 watch item past ~10k assets)
 
-**Moderation Workflow** — PLANNED
+**Moderation Workflow** — DONE (US-015 done 2026-07-22, see `.specs/features/e03-f09-moderation-workflow/spec.md`)
 
-- `SubmitForModeration`, Kafka consumer for `AssetMediaModerated` from `rentifyx-ai-services`, auto-approve/reject/manual-review, `AdminReviewAsset` override (ADR-AR-008)
+- `SubmitForModeration` (owner-only, Draft→PendingModeration), `ApplyModerationVerdict` (Application-layer contract the future Kafka consumer calls; Approved→Active, Rejected/PendingReview held in PendingModeration, idempotent), `AdminReviewAsset` override (ADR-AR-008) — DONE
+- Verified real event contract against `rentifyx-ai-services`: `AssetMediaModerated(AssetId, Verdict, Labels, TopConfidence, Timestamp, SchemaVersion)`, local `ModerationVerdict` enum mirrors it without a package dependency
+- Kafka consumer `IHostedService` itself — still PLANNED (E-04, same as DynamoDB repository and S3 storage adapter)
 
 ---
 

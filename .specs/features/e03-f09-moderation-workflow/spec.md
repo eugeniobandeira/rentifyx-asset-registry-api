@@ -131,7 +131,7 @@ Flagged as a deferred idea, not blocking this pass (plan does not call for a rev
 | MOD-12 | P2: conflict when target not PendingModeration | Application | Pending |
 | MOD-13 | Edge: unrecognized verdict treated as no-op | Application | Pending |
 
-**Coverage:** 13 total, 13 mapped to tasks (implicit, execution plan below — Tasks phase skipped), 0 unmapped
+**Coverage:** 13 total, 13 mapped to tasks (implicit, execution plan below — Tasks phase skipped), 0 unmapped. Status: Verified (2026-07-22, 7 validator tests + 15 handler tests, all green).
 
 ---
 
