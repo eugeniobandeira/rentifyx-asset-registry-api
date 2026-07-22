@@ -98,4 +98,7 @@
   <data name="PRICE_INVALID" xml:space="preserve">
     <value>Price must be greater than or equal to zero.</value>
   </data>
+  <data name="PRICE_RANGE_INVALID" xml:space="preserve">
+    <value>MinPrice must not be greater than MaxPrice.</value>
+  </data>
 </root>

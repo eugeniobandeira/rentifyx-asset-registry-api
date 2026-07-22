@@ -239,5 +239,14 @@ namespace RentifyxAssetRegistry.Domain.MessageResource {
                 return ResourceManager.GetString("PRICE_INVALID", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to MinPrice must not be greater than MaxPrice..
+        /// </summary>
+        public static string PRICE_RANGE_INVALID {
+            get {
+                return ResourceManager.GetString("PRICE_RANGE_INVALID", resourceCulture);
+            }
+        }
     }
 }

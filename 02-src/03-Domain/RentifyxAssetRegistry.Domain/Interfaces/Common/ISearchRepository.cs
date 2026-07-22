@@ -6,5 +6,5 @@ public interface ISearchRepository<T, in TFilter>
     where T : class
     where TFilter : class
 {
-    Task<PagedResult<T>> SearchAsync(TFilter filter, CancellationToken ct = default);
+    Task<CursorPagedResult<T>> SearchAsync(TFilter filter, CancellationToken ct = default);
 }
