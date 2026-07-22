@@ -15,12 +15,12 @@ decisions, and deferred work, `.specs/project/STATE.md` and `.specs/project/ROAD
 living source of truth — this file describes conventions and should be updated when they change,
 but check STATE.md/ROADMAP.md before assuming something here reflects the current state.
 
-**Known gap (see STATE.md D-001):** the `dotnet new clean-arch` scaffold generated this repo with
-an EF Core + Npgsql `Infrastructure` layer (`AppDbContext`, migrations, generic
-`IAddRepository<T>`/`IUnitOfWork`) and an `Example*` reference feature built against it. The plan's
-stack has no relational database — this layer gets replaced with DynamoDB in E-04. Don't assume
-EF Core is the persistence story going forward; the `Example*` files are a living pattern guide for
-folder/naming conventions, not a template to extend with more Postgres code.
+**Resolved gap (see STATE.md D-001):** the `dotnet new clean-arch` scaffold originally generated
+this repo with an EF Core + Npgsql `Infrastructure` layer (`AppDbContext`, migrations, generic
+`IAddRepository<T>`/`IUnitOfWork`) and an `Example*` reference feature built against it. Both were
+removed in full — the plan's stack has no relational database, and no real feature ever depended
+on either. `05-Infrastructure` is currently empty of repository implementations; `IAssetRepository`/
+`ICategoryRepository` await their DynamoDB implementation in E-04.
 
 ## Tech stack
 
@@ -42,7 +42,7 @@ folder/naming conventions, not a template to extend with more Postgres code.
   02-Application/     – Use cases via IHandler<TRequest,TResponse>, FluentValidation validators
   03-Domain/          – Entities, value objects, domain events, repository contracts (no framework deps)
   04-IoC/             – DI wiring (ApplicationDependencyInjection, InfrastructureDependencyInjection)
-  05-Infrastructure/  – Repository implementations, AWS SDK adapters (currently EF Core/Npgsql — see gap above)
+  05-Infrastructure/  – Repository implementations, AWS SDK adapters (DynamoDB implementation pending, E-04)
 03-tests/
   01-Common/          – Shared builders (Bogus)
   02-Validators/      – FluentValidation unit tests
@@ -61,7 +61,7 @@ k8s/                  – Kustomize/Helm base + overlays (E-06)
 1. **Domain** – entity / value object / domain event in `02-src/03-Domain/`
 2. **Contracts** – repository/service interface in `Domain/Interfaces/{Concept}/` — never loose directly under `Interfaces/`; give every interface a subfolder named after its domain concept (matches `Examples/` precedent)
    - **Repository interfaces compose generic building blocks from `Domain/Interfaces/Common/`** rather than hand-writing each CRUD method: `IGetByIdRepository<T>`, `IGetAllRepository<T>` (no filter) / `IGetAllRepository<T, TFilter>` (filtered, paged), `ISaveRepository<T>` (single upsert verb — fits DynamoDB `PutItem`, no separate insert/update tracking), `ISearchRepository<T, TFilter>` (paged, filtered query distinct from a plain `GetAll`), `ISoftDeleteRepository` (status-flip by `Guid id`, not a hard delete of an entity). Add bespoke methods (e.g. `GetByOwnerAsync`) directly on the feature interface — not everything needs a generic.
-   - **Do not compose from the older `IAddRepository<T>` / `IUpdateRepository<T>` / `IDeleteRepository<T>` / `IUnitOfWork`** (used by the `Example*` scaffold) for new repositories — those model EF Core's separate insert/update change-tracking and hard-delete-by-entity semantics, tied to the D-001 gap (EF Core/Postgres layer slated for a DynamoDB swap in E-04). They stay only until `Example*` is removed; new repository interfaces should use the `ISaveRepository`/`ISoftDeleteRepository`/`ISearchRepository` set above so they don't need rework when that cleanup happens.
+   - The older `IAddRepository<T>` / `IUpdateRepository<T>` / `IDeleteRepository<T>` / `IUnitOfWork` (EF Core's separate insert/update change-tracking, hard-delete-by-entity semantics) were removed along with the `Example*` scaffold and the EF Core/Npgsql `Infrastructure` layer — they no longer exist in this repo. All repository interfaces use the `ISaveRepository`/`ISoftDeleteRepository`/`ISearchRepository` set above.
 3. **Application** – feature folder under `Application/Features/{Feature}/Handlers/{Action}/`
    - `Request/{Action}Request.cs` → request record
    - `Validator/{Action}Validator.cs` → FluentValidation validator

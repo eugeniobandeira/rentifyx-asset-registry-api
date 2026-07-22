@@ -48,10 +48,8 @@ public sealed class ApplyModerationVerdictHandlerTests
         repository.Verify(r => r.SaveAsync(asset, It.IsAny<CancellationToken>()), Times.Once);
     }
 
-    [Theory]
-    [InlineData(ModerationVerdict.Rejected)]
-    [InlineData(ModerationVerdict.PendingReview)]
-    public async Task HandleAsync_RejectedOrPendingReviewVerdict_StaysPendingModerationWithoutSaving(ModerationVerdict verdict)
+    [Fact]
+    public async Task HandleAsync_RejectedVerdict_ArchivesAndSaves()
     {
         AssetEntity asset = BuildPendingModerationAsset();
         Mock<IAssetRepository> repository = new();
@@ -59,7 +57,23 @@ public sealed class ApplyModerationVerdictHandlerTests
 
         ApplyModerationVerdictHandler handler = BuildHandler(repository);
 
-        ErrorOr<AssetModerationResponse> result = await handler.HandleAsync(new ApplyModerationVerdictRequest(asset.Id, verdict));
+        ErrorOr<AssetModerationResponse> result = await handler.HandleAsync(new ApplyModerationVerdictRequest(asset.Id, ModerationVerdict.Rejected));
+
+        result.IsError.Should().BeFalse();
+        result.Value.Status.Should().Be(AssetStatus.Archived);
+        repository.Verify(r => r.SaveAsync(asset, It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task HandleAsync_PendingReviewVerdict_StaysPendingModerationWithoutSaving()
+    {
+        AssetEntity asset = BuildPendingModerationAsset();
+        Mock<IAssetRepository> repository = new();
+        repository.Setup(r => r.GetByIdAsync(asset.Id, It.IsAny<CancellationToken>())).ReturnsAsync(asset);
+
+        ApplyModerationVerdictHandler handler = BuildHandler(repository);
+
+        ErrorOr<AssetModerationResponse> result = await handler.HandleAsync(new ApplyModerationVerdictRequest(asset.Id, ModerationVerdict.PendingReview));
 
         result.IsError.Should().BeFalse();
         result.Value.Status.Should().Be(AssetStatus.PendingModeration);

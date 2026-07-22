@@ -79,42 +79,6 @@ namespace RentifyxAssetRegistry.Domain.MessageResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name must not exceed {MaxLength} characters..
-        /// </summary>
-        public static string NAME_MAX_LENGTH {
-            get {
-                return ResourceManager.GetString("NAME_MAX_LENGTH", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name is required..
-        /// </summary>
-        public static string NAME_REQUIRED {
-            get {
-                return ResourceManager.GetString("NAME_REQUIRED", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Example not found..
-        /// </summary>
-        public static string EXAMPLE_NOT_FOUND {
-            get {
-                return ResourceManager.GetString("EXAMPLE_NOT_FOUND", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Page must be greater than or equal to {MinPage}..
-        /// </summary>
-        public static string PAGE_INVALID {
-            get {
-                return ResourceManager.GetString("PAGE_INVALID", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to PageSize must be between {MinPageSize} and {MaxPageSize}..
         /// </summary>
         public static string PAGE_SIZE_INVALID {
