@@ -13,4 +13,7 @@ public static class AssetMapper
 
     public static AssetSummaryResponse ToAssetSummaryResponse(AssetEntity entity)
         => new(entity.Id, entity.Title.Value, entity.Price.Amount, entity.CategoryId, entity.Status);
+
+    public static AssetModerationResponse ToModerationResponse(AssetEntity entity)
+        => new(entity.Id, entity.Status);
 }
