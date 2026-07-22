@@ -1,7 +1,7 @@
+﻿using FluentValidation;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload.Request;
 using RentifyxAssetRegistry.Domain.Constants;
 using RentifyxAssetRegistry.Domain.MessageResource;
-using FluentValidation;
 
 namespace RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload.Validator;
 

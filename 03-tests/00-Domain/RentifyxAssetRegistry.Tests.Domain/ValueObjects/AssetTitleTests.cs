@@ -1,4 +1,4 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 using RentifyxAssetRegistry.Domain.ValueObjects;
 using Xunit;
 
@@ -25,7 +25,7 @@ public class AssetTitleTests
     [Fact]
     public void Create_ExactlyMaxLength_ShouldSucceed()
     {
-        string value = new string('A', 100);
+        string value = new('A', 100);
 
         AssetTitle title = AssetTitle.Create(value);
 
@@ -43,7 +43,7 @@ public class AssetTitleTests
     [Fact]
     public void Create_TooLong_ShouldThrow()
     {
-        string value = new string('A', 101);
+        string value = new('A', 101);
 
         Action act = () => AssetTitle.Create(value);
 

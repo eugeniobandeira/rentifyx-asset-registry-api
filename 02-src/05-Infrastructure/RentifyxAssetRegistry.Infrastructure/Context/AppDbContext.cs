@@ -1,6 +1,6 @@
+﻿using Microsoft.EntityFrameworkCore;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Infrastructure.Context.Configurations;
-using Microsoft.EntityFrameworkCore;
 
 namespace RentifyxAssetRegistry.Infrastructure.Context;
 

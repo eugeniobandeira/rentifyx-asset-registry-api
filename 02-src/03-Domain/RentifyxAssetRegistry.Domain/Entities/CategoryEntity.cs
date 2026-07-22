@@ -47,4 +47,31 @@ public sealed class CategoryEntity : AggregateRoot
             Depth = parent.Depth + 1
         };
     }
+
+    public void Rename(string name)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+
+        Name = name;
+    }
+
+    public void ReParent(CategoryEntity newParent)
+    {
+        ArgumentNullException.ThrowIfNull(newParent);
+
+        if (newParent.Id == Id)
+        {
+            throw new ArgumentException("A category cannot be re-parented to itself.", nameof(newParent));
+        }
+
+        if (newParent.Depth >= ValidationConstants.CategoryRules.MaxDepth)
+        {
+            throw new ArgumentException(
+                $"Cannot re-parent under a category at depth {newParent.Depth}; max depth is {ValidationConstants.CategoryRules.MaxDepth}.",
+                nameof(newParent));
+        }
+
+        ParentCategoryId = newParent.Id;
+        Depth = newParent.Depth + 1;
+    }
 }

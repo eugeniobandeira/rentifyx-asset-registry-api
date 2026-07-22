@@ -1,4 +1,4 @@
-using RentifyxAssetRegistry.Domain.Constants;
+﻿using RentifyxAssetRegistry.Domain.Constants;
 
 namespace RentifyxAssetRegistry.Domain.ValueObjects;
 
@@ -15,8 +15,8 @@ public sealed record AssetDescription
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(value);
 
-        if (value.Length < ValidationConstants.AssetRules.DescriptionMinLength ||
-            value.Length > ValidationConstants.AssetRules.DescriptionMaxLength)
+        if (value.Length is < ValidationConstants.AssetRules.DescriptionMinLength or
+            > ValidationConstants.AssetRules.DescriptionMaxLength)
         {
             throw new ArgumentException(
                 $"Description must be between {ValidationConstants.AssetRules.DescriptionMinLength} and {ValidationConstants.AssetRules.DescriptionMaxLength} characters.",

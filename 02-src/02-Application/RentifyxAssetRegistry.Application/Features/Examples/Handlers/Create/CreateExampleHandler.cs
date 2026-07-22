@@ -1,13 +1,13 @@
-﻿using RentifyxAssetRegistry.Application.Common.Handler;
+﻿using ErrorOr;
+using FluentValidation;
+using Microsoft.Extensions.Logging;
+using RentifyxAssetRegistry.Application.Common.Handler;
 using RentifyxAssetRegistry.Application.Extensions;
 using RentifyxAssetRegistry.Application.Features.Examples.Handlers.Create.Request;
 using RentifyxAssetRegistry.Application.Features.Examples.Mapper;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Interfaces;
 using RentifyxAssetRegistry.Domain.Interfaces.Common;
-using ErrorOr;
-using FluentValidation;
-using Microsoft.Extensions.Logging;
 
 namespace RentifyxAssetRegistry.Application.Features.Examples.Handlers.Create;
 

@@ -1,3 +1,4 @@
+﻿using ErrorOr;
 using RentifyxAssetRegistry.Api.Abstract;
 using RentifyxAssetRegistry.Api.Extensions;
 using RentifyxAssetRegistry.Application.Common.Handler;
@@ -6,7 +7,6 @@ using RentifyxAssetRegistry.Application.Features.Examples.Handlers.GetAll.Reques
 using RentifyxAssetRegistry.Application.Features.Examples.Mapper;
 using RentifyxAssetRegistry.Domain.Common;
 using RentifyxAssetRegistry.Domain.Entities;
-using ErrorOr;
 
 namespace RentifyxAssetRegistry.Api.Endpoints.Examples;
 

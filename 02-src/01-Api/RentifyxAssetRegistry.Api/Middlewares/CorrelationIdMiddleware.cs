@@ -1,5 +1,5 @@
+﻿using Microsoft.Extensions.Primitives;
 using RentifyxAssetRegistry.Domain.Constants;
-using Microsoft.Extensions.Primitives;
 using Serilog.Context;
 
 namespace RentifyxAssetRegistry.Api.Middlewares;

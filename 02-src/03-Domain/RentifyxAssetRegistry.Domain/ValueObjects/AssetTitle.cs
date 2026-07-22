@@ -1,4 +1,4 @@
-using RentifyxAssetRegistry.Domain.Constants;
+﻿using RentifyxAssetRegistry.Domain.Constants;
 
 namespace RentifyxAssetRegistry.Domain.ValueObjects;
 
@@ -15,8 +15,8 @@ public sealed record AssetTitle
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(value);
 
-        if (value.Length < ValidationConstants.AssetRules.TitleMinLength ||
-            value.Length > ValidationConstants.AssetRules.TitleMaxLength)
+        if (value.Length is < ValidationConstants.AssetRules.TitleMinLength or
+            > ValidationConstants.AssetRules.TitleMaxLength)
         {
             throw new ArgumentException(
                 $"Title must be between {ValidationConstants.AssetRules.TitleMinLength} and " +

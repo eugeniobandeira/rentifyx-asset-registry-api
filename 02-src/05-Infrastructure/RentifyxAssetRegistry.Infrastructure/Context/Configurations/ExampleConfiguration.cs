@@ -1,7 +1,7 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RentifyxAssetRegistry.Domain.Constants;
 using RentifyxAssetRegistry.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace RentifyxAssetRegistry.Infrastructure.Context.Configurations;
 

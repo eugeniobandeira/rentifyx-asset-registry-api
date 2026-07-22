@@ -1,6 +1,4 @@
-using RentifyxAssetRegistry.Domain.ValueObjects;
-
-namespace RentifyxAssetRegistry.Domain.Interfaces.Media;
+﻿namespace RentifyxAssetRegistry.Domain.Interfaces.Media;
 
 public interface IMediaStorageService
 {

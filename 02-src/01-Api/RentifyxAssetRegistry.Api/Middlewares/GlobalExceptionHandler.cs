@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using RentifyxAssetRegistry.Domain.Constants;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using RentifyxAssetRegistry.Domain.Constants;
 
 namespace RentifyxAssetRegistry.Api.Middlewares;
 

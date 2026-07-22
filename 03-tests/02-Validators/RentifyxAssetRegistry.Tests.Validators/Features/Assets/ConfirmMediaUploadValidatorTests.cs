@@ -1,7 +1,7 @@
+﻿using FluentAssertions;
+using FluentValidation.Results;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ConfirmMediaUpload.Request;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ConfirmMediaUpload.Validator;
-using FluentAssertions;
-using FluentValidation.Results;
 using Xunit;
 
 namespace RentifyxAssetRegistry.Tests.Validators.Features.Assets;

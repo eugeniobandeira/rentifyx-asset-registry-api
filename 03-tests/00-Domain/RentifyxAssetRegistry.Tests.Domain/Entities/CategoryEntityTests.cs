@@ -74,4 +74,73 @@ public class CategoryEntityTests
 
         act.Should().Throw<ArgumentException>();
     }
+
+    [Fact]
+    public void Rename_ValidName_UpdatesName()
+    {
+        CategoryEntity category = CategoryEntity.CreateRoot("Electronics");
+
+        category.Rename("Consumer Electronics");
+
+        category.Name.Should().Be("Consumer Electronics");
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Rename_NullOrWhitespaceName_ThrowsArgumentException(string? name)
+    {
+        CategoryEntity category = CategoryEntity.CreateRoot("Electronics");
+
+        Action act = () => category.Rename(name!);
+
+        act.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
+    public void ReParent_ToDifferentValidParent_UpdatesParentAndDepth()
+    {
+        CategoryEntity oldParent = CategoryEntity.CreateRoot("Electronics");
+        CategoryEntity category = CategoryEntity.CreateChild("Computers", oldParent);
+        CategoryEntity newParent = CategoryEntity.CreateRoot("Appliances");
+
+        category.ReParent(newParent);
+
+        category.ParentCategoryId.Should().Be(newParent.Id);
+        category.Depth.Should().Be(newParent.Depth + 1);
+    }
+
+    [Fact]
+    public void ReParent_ToItself_ThrowsArgumentException()
+    {
+        CategoryEntity category = CategoryEntity.CreateRoot("Electronics");
+
+        Action act = () => category.ReParent(category);
+
+        act.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
+    public void ReParent_UnderMaxDepthParent_ThrowsArgumentException()
+    {
+        CategoryEntity root = CategoryEntity.CreateRoot("Electronics");
+        CategoryEntity depthTwo = CategoryEntity.CreateChild("Computers", root);
+        CategoryEntity depthThree = CategoryEntity.CreateChild("Laptops", depthTwo);
+        CategoryEntity other = CategoryEntity.CreateRoot("Appliances");
+
+        Action act = () => other.ReParent(depthThree);
+
+        act.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
+    public void ReParent_NullParent_ThrowsArgumentNullException()
+    {
+        CategoryEntity category = CategoryEntity.CreateRoot("Electronics");
+
+        Action act = () => category.ReParent(null!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
 }

@@ -1,3 +1,6 @@
+﻿using ErrorOr;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using RentifyxAssetRegistry.Application.Common.Handler;
 using RentifyxAssetRegistry.Application.Features.Assets;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ConfirmMediaUpload;
@@ -9,6 +12,15 @@ using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Create.Validato
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload.Request;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload.Validator;
+using RentifyxAssetRegistry.Application.Features.Categories;
+using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Create;
+using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Create.Request;
+using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Create.Validator;
+using RentifyxAssetRegistry.Application.Features.Categories.Handlers.ListCategories;
+using RentifyxAssetRegistry.Application.Features.Categories.Handlers.ListCategories.Request;
+using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Update;
+using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Update.Request;
+using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Update.Validator;
 using RentifyxAssetRegistry.Application.Features.Examples.Handlers.Create;
 using RentifyxAssetRegistry.Application.Features.Examples.Handlers.Create.Request;
 using RentifyxAssetRegistry.Application.Features.Examples.Handlers.Create.Validator;
@@ -22,9 +34,6 @@ using RentifyxAssetRegistry.Application.Features.Examples.Handlers.Update.Reques
 using RentifyxAssetRegistry.Application.Features.Examples.Handlers.Update.Validator;
 using RentifyxAssetRegistry.Domain.Common;
 using RentifyxAssetRegistry.Domain.Entities;
-using ErrorOr;
-using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace RentifyxAssetRegistry.IoC;
 
@@ -50,6 +59,14 @@ internal static class ApplicationDependencyInjection
 
         services.AddScoped<IValidator<ConfirmMediaUploadRequest>, ConfirmMediaUploadValidator>();
         services.AddScoped<IHandler<ConfirmMediaUploadRequest, ConfirmMediaUploadResponse>, ConfirmMediaUploadHandler>();
+
+        services.AddScoped<IValidator<CreateCategoryRequest>, CreateCategoryValidator>();
+        services.AddScoped<IHandler<CreateCategoryRequest, CategoryResponse>, CreateCategoryHandler>();
+
+        services.AddScoped<IValidator<UpdateCategoryRequest>, UpdateCategoryValidator>();
+        services.AddScoped<IHandler<UpdateCategoryRequest, CategoryResponse>, UpdateCategoryHandler>();
+
+        services.AddScoped<IHandler<ListCategoriesRequest, IReadOnlyList<CategoryResponse>>, ListCategoriesHandler>();
 
         return services;
     }

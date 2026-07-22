@@ -1,9 +1,9 @@
+﻿using ErrorOr;
+using Microsoft.Extensions.Logging;
 using RentifyxAssetRegistry.Application.Common.Handler;
 using RentifyxAssetRegistry.Domain.Constants;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Interfaces.Common;
-using ErrorOr;
-using Microsoft.Extensions.Logging;
 
 namespace RentifyxAssetRegistry.Application.Features.Examples.Handlers.GetById;
 

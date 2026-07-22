@@ -1,3 +1,6 @@
+﻿using ErrorOr;
+using FluentValidation;
+using Microsoft.Extensions.Logging;
 using RentifyxAssetRegistry.Application.Common.Handler;
 using RentifyxAssetRegistry.Application.Extensions;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload.Request;
@@ -5,9 +8,6 @@ using RentifyxAssetRegistry.Domain.Constants;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Interfaces.Asset;
 using RentifyxAssetRegistry.Domain.Interfaces.Media;
-using ErrorOr;
-using FluentValidation;
-using Microsoft.Extensions.Logging;
 
 namespace RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload;
 

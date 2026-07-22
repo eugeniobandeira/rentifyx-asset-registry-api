@@ -1,4 +1,4 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SecretsManager;
@@ -46,12 +46,14 @@ internal sealed class SecretsManagerConfigurationProvider : ConfigurationProvide
                 SecretId = secretName
             }).GetAwaiter().GetResult();
 
-            if (response.SecretString is null) return;
+            if (response.SecretString is null)
+                return;
 
             Dictionary<string, string?>? secrets =
                 JsonSerializer.Deserialize<Dictionary<string, string?>>(response.SecretString);
 
-            if (secrets is not null) Data = secrets;
+            if (secrets is not null)
+                Data = secrets;
         }
         catch (ResourceNotFoundException)
         {

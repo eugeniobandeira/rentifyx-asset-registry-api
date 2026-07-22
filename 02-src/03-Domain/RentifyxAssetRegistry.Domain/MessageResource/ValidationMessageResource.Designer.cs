@@ -221,5 +221,14 @@ namespace RentifyxAssetRegistry.Domain.MessageResource {
                 return ResourceManager.GetString("S3_KEY_REQUIRED", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Category name is required..
+        /// </summary>
+        public static string CATEGORY_NAME_REQUIRED {
+            get {
+                return ResourceManager.GetString("CATEGORY_NAME_REQUIRED", resourceCulture);
+            }
+        }
     }
 }
