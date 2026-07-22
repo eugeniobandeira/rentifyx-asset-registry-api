@@ -101,11 +101,13 @@
 **S3 Media Storage** — PLANNED
 
 - Terraform S3 bucket (CORS scoped to `rentifyx-web`), presigned-URL-only bucket policy, multipart cleanup lifecycle
+- `S3MediaStorageService` real key-generation implementation — confirm the `assets/{ownerId}/{assetId}/{filename}` convention against `rentifyx-ai-services`'s `AssetKeyConventionFilter` before finalizing (STATE.md G-001)
 
 **Cross-Service Integration** — PLANNED
 
 - Kafka consumer for `UserSuspended`/`UserDeleted` from `identity-api`, local owner-status cache
 - Fail-open vs. fail-closed decision for stale cache (ADR-AR-011) — recommend fail-closed, needs confirmation before implementation
+- Kafka consumer `IHostedService` for `AssetMediaModerated` from `rentifyx-ai-services`, calling F-09's `ApplyModerationVerdictHandler` (plan T-076, ADR-AR-008)
 
 ---
 

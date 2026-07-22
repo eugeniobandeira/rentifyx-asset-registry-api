@@ -41,6 +41,8 @@ _None active._
 
 | ID | Gap | Detail | Since | Resolved |
 |---|---|---|---|---|
+| G-001 | S3 key convention unconfirmed cross-repo | Both this repo and `rentifyx-ai-services` independently assume `assets/{ownerId}/{assetId}/{filename}` (this repo's `RequestMediaUploadHandlerTests` mock; `rentifyx-ai-services`'s E-02 `AssetKeyConventionFilter`) — a good signal, but neither repo has a real S3 key-generation implementation yet (`S3MediaStorageService` here is E-04, unbuilt). Confirm for real when E-04 implements the S3 adapter — check against `rentifyx-ai-services`'s `AssetKeyConventionFilter` before finalizing. | 2026-07-22 | No |
+| G-002 | ADR-AR-008 was referenced by name (spec.md, ROADMAP.md, this file) three sessions before it was actually written | F-09 shipped citing "per ADR-AR-008" without the file existing in `docs/decisions/`. Written retroactively as `008-moderation-event-only-boundary.md`, matching what F-09 actually implemented (local `ModerationVerdict` enum, `AssetMediaModerated`-only consumption, standalone `AdminReviewAsset`). Worth a process note: write the ADR file in the same commit/PR that first cites it, not after. | 2026-07-22 | Yes (2026-07-22) |
 
 ## Deferred Ideas
 
