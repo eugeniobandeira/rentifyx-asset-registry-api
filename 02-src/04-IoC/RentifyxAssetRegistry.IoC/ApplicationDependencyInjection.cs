@@ -3,6 +3,12 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using RentifyxAssetRegistry.Application.Common.Handler;
 using RentifyxAssetRegistry.Application.Features.Assets;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.AdminReviewAsset;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.AdminReviewAsset.Request;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.AdminReviewAsset.Validator;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ApplyModerationVerdict;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ApplyModerationVerdict.Request;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ApplyModerationVerdict.Validator;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ConfirmMediaUpload;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ConfirmMediaUpload.Request;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ConfirmMediaUpload.Validator;
@@ -15,6 +21,9 @@ using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpl
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Search;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Search.Request;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Search.Validator;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.SubmitForModeration;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.SubmitForModeration.Request;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.SubmitForModeration.Validator;
 using RentifyxAssetRegistry.Application.Features.Categories;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Create;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Create.Request;
@@ -65,6 +74,15 @@ internal static class ApplicationDependencyInjection
 
         services.AddScoped<IValidator<SearchAssetsRequest>, SearchAssetsValidator>();
         services.AddScoped<IHandler<SearchAssetsRequest, SearchAssetsResponse>, SearchAssetsHandler>();
+
+        services.AddScoped<IValidator<SubmitForModerationRequest>, SubmitForModerationValidator>();
+        services.AddScoped<IHandler<SubmitForModerationRequest, AssetModerationResponse>, SubmitForModerationHandler>();
+
+        services.AddScoped<IValidator<ApplyModerationVerdictRequest>, ApplyModerationVerdictValidator>();
+        services.AddScoped<IHandler<ApplyModerationVerdictRequest, AssetModerationResponse>, ApplyModerationVerdictHandler>();
+
+        services.AddScoped<IValidator<AdminReviewAssetRequest>, AdminReviewAssetValidator>();
+        services.AddScoped<IHandler<AdminReviewAssetRequest, AssetModerationResponse>, AdminReviewAssetHandler>();
 
         services.AddScoped<IValidator<CreateCategoryRequest>, CreateCategoryValidator>();
         services.AddScoped<IHandler<CreateCategoryRequest, CategoryResponse>, CreateCategoryHandler>();
