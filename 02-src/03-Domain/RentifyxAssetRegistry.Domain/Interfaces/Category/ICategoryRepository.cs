@@ -1,12 +1,11 @@
 using RentifyxAssetRegistry.Domain.Entities;
+using RentifyxAssetRegistry.Domain.Interfaces.Common;
 
 namespace RentifyxAssetRegistry.Domain.Interfaces.Category;
 
-public interface ICategoryRepository
+public interface ICategoryRepository :
+    IGetByIdRepository<CategoryEntity>,
+    IGetAllRepository<CategoryEntity>,
+    ISaveRepository<CategoryEntity>
 {
-    Task<CategoryEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-
-    Task<IReadOnlyList<CategoryEntity>> GetAllAsync(CancellationToken cancellationToken = default);
-
-    Task SaveAsync(CategoryEntity category, CancellationToken cancellationToken = default);
 }
