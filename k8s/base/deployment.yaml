@@ -27,7 +27,7 @@ spec:
             - name: OTEL_EXPORTER_OTLP_HEADERS
               value: ""
             - name: OTEL_SERVICE_NAME
-              value: rentifyx_asset_registry_api.Api
+              value: RentifyxAssetRegistry.Api
             - name: OTEL_RESOURCE_ATTRIBUTES
               value: deployment.environment=production
           resources:

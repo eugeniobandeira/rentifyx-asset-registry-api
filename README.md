@@ -32,7 +32,7 @@ dotnet workload install aspire
 ## Quick Start
 
 ```bash
-dotnet new install EugenioBandeira.rentifyx_asset_registry_apiTemplate
+dotnet new install EugenioBandeira.RentifyxAssetRegistryTemplate
 dotnet new clean-arch -n MyProject
 ```
 
@@ -72,7 +72,7 @@ MyProject/
 ├── Directory.Build.props                   # Shared build settings for all projects
 ├── Directory.Packages.props                # Centralized NuGet package versions
 ├── Dockerfile
-└── rentifyx_asset_registry_api.slnx
+└── RentifyxAssetRegistry.slnx
 ```
 
 ## Architecture
@@ -362,7 +362,7 @@ Set the following environment variables to enable export to any OTLP-compatible 
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | Collector URL | _(empty — export disabled)_ |
 | `OTEL_EXPORTER_OTLP_PROTOCOL` | `http/protobuf` or `grpc` | `http/protobuf` |
 | `OTEL_EXPORTER_OTLP_HEADERS` | Auth headers (e.g. API key) | _(empty)_ |
-| `OTEL_SERVICE_NAME` | Service name in traces/metrics | `rentifyx_asset_registry_api.Api` |
+| `OTEL_SERVICE_NAME` | Service name in traces/metrics | `RentifyxAssetRegistry.Api` |
 | `OTEL_RESOURCE_ATTRIBUTES` | Additional resource metadata | `deployment.environment=production` |
 
 Compatible platforms: Grafana Cloud, Datadog, New Relic, Honeycomb, Elastic, Jaeger, OpenTelemetry Collector.
@@ -389,15 +389,15 @@ The template uses PostgreSQL (Npgsql) via EF Core. `appsettings.json` ships with
 
 ```json
 "ConnectionStrings": {
-  "DefaultConnection": "Host=localhost;Port=5432;Database=rentifyx_asset_registry_apiDb;Username=postgres;Password=postgres"
+  "DefaultConnection": "Host=localhost;Port=5432;Database=RentifyxAssetRegistryDb;Username=postgres;Password=postgres"
 }
 ```
 
-Running via the Aspire AppHost (`dotnet run` in `01-aspire/01-AppHost/rentifyx_asset_registry_api.AppHost`) provisions a PostgreSQL container automatically (requires Docker running) and injects the connection string for you — no manual setup needed for local development. Replace the value above only if you run the API standalone against a different database.
+Running via the Aspire AppHost (`dotnet run` in `01-aspire/01-AppHost/RentifyxAssetRegistry.AppHost`) provisions a PostgreSQL container automatically (requires Docker running) and injects the connection string for you — no manual setup needed for local development. Replace the value above only if you run the API standalone against a different database.
 
 ### 2. Run database migrations
 
-The template ships with EF Core (`Microsoft.EntityFrameworkCore.Tools` is already referenced on `rentifyx_asset_registry_api.IoC`). `AppDbContext` lives in `rentifyx_asset_registry_api.Infrastructure`, and it's wired up via `rentifyx_asset_registry_api.Api` (the startup project), so every `dotnet ef` command needs both `--project` (where the context lives) and `--startup-project` (where the DI/configuration lives).
+The template ships with EF Core (`Microsoft.EntityFrameworkCore.Tools` is already referenced on `RentifyxAssetRegistry.IoC`). `AppDbContext` lives in `RentifyxAssetRegistry.Infrastructure`, and it's wired up via `RentifyxAssetRegistry.Api` (the startup project), so every `dotnet ef` command needs both `--project` (where the context lives) and `--startup-project` (where the DI/configuration lives).
 
 Install the tool once, if you don't have it yet:
 
@@ -409,8 +409,8 @@ dotnet tool install --global dotnet-ef
 
 ```bash
 dotnet ef migrations add <MigrationName> \
-  --project 02-src/05-Infrastructure/rentifyx_asset_registry_api.Infrastructure \
-  --startup-project 02-src/01-Api/rentifyx_asset_registry_api.Api \
+  --project 02-src/05-Infrastructure/RentifyxAssetRegistry.Infrastructure \
+  --startup-project 02-src/01-Api/RentifyxAssetRegistry.Api \
   --output-dir Context/Migrations
 ```
 
@@ -420,16 +420,16 @@ The AppHost provisions the PostgreSQL container and gives you the connection str
 
 ```bash
 dotnet ef database update \
-  --project 02-src/05-Infrastructure/rentifyx_asset_registry_api.Infrastructure \
-  --startup-project 02-src/01-Api/rentifyx_asset_registry_api.Api
+  --project 02-src/05-Infrastructure/RentifyxAssetRegistry.Infrastructure \
+  --startup-project 02-src/01-Api/RentifyxAssetRegistry.Api
 ```
 
 **Remove the last migration** (only if it hasn't been applied yet):
 
 ```bash
 dotnet ef migrations remove \
-  --project 02-src/05-Infrastructure/rentifyx_asset_registry_api.Infrastructure \
-  --startup-project 02-src/01-Api/rentifyx_asset_registry_api.Api
+  --project 02-src/05-Infrastructure/RentifyxAssetRegistry.Infrastructure \
+  --startup-project 02-src/01-Api/RentifyxAssetRegistry.Api
 ```
 
 ### 3. Implement the repository
@@ -534,13 +534,13 @@ Endpoints are registered automatically via reflection — no additional wiring n
 With Aspire orchestration (recommended):
 
 ```bash
-dotnet run --project "01-aspire/01-AppHost/rentifyx_asset_registry_api.AppHost"
+dotnet run --project "01-aspire/01-AppHost/RentifyxAssetRegistry.AppHost"
 ```
 
 Or directly:
 
 ```bash
-dotnet run --project "02-src/01-Api/rentifyx_asset_registry_api.Api"
+dotnet run --project "02-src/01-Api/RentifyxAssetRegistry.Api"
 ```
 
 ## Running with Docker

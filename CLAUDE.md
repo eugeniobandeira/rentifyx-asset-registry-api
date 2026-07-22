@@ -1,4 +1,4 @@
-# rentifyx-asset-registry-api
+# RentifyxAssetRegistry
 
 Asset catalog microservice for the RentifyX platform. Built with .NET 10 Minimal APIs, Clean Architecture, DDD, and TDD.
 
@@ -163,13 +163,13 @@ Static factory `Create(...)`, private setters, no public constructor. Use `Argum
 
 ```bash
 # Start API via Aspire (Dashboard + Scalar UI)
-dotnet run --project 01-aspire/01-AppHost/rentifyx-asset-registry-api.AppHost
+dotnet run --project 01-aspire/01-AppHost/RentifyxAssetRegistry.AppHost
 
 # Run all tests
-dotnet test rentifyx-asset-registry-api.slnx
+dotnet test RentifyxAssetRegistry.slnx
 
 # Build release
-dotnet build rentifyx-asset-registry-api.slnx --configuration Release
+dotnet build RentifyxAssetRegistry.slnx --configuration Release
 ```
 
 ## CI/CD
