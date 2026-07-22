@@ -1,9 +1,9 @@
-﻿using RentifyxAssetRegistry.Domain.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using RentifyxAssetRegistry.Domain.Common;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Filters.Examples;
 using RentifyxAssetRegistry.Domain.Interfaces.Examples;
 using RentifyxAssetRegistry.Infrastructure.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace RentifyxAssetRegistry.Infrastructure.Repositories;
 

@@ -1,13 +1,13 @@
+﻿using ErrorOr;
+using FluentAssertions;
+using Microsoft.Extensions.Logging.Abstractions;
+using Moq;
 using RentifyxAssetRegistry.Application.Features.Categories;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Create;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Create.Request;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Create.Validator;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Interfaces.Category;
-using ErrorOr;
-using FluentAssertions;
-using Microsoft.Extensions.Logging.Abstractions;
-using Moq;
 using Xunit;
 
 namespace RentifyxAssetRegistry.Tests.Handlers.Features.Categories;

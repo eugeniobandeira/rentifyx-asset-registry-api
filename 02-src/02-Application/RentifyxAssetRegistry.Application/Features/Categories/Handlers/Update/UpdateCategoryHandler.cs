@@ -1,3 +1,6 @@
+﻿using ErrorOr;
+using FluentValidation;
+using Microsoft.Extensions.Logging;
 using RentifyxAssetRegistry.Application.Common.Handler;
 using RentifyxAssetRegistry.Application.Extensions;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Update.Request;
@@ -5,9 +8,6 @@ using RentifyxAssetRegistry.Application.Features.Categories.Mapper;
 using RentifyxAssetRegistry.Domain.Constants;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Interfaces.Category;
-using ErrorOr;
-using FluentValidation;
-using Microsoft.Extensions.Logging;
 
 namespace RentifyxAssetRegistry.Application.Features.Categories.Handlers.Update;
 

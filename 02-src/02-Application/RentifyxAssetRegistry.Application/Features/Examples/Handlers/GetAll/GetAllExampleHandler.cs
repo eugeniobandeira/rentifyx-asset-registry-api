@@ -1,3 +1,6 @@
+﻿using ErrorOr;
+using FluentValidation;
+using Microsoft.Extensions.Logging;
 using RentifyxAssetRegistry.Application.Common.Handler;
 using RentifyxAssetRegistry.Application.Extensions;
 using RentifyxAssetRegistry.Application.Features.Examples.Handlers.GetAll.Request;
@@ -5,9 +8,6 @@ using RentifyxAssetRegistry.Application.Features.Examples.Mapper;
 using RentifyxAssetRegistry.Domain.Common;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Interfaces.Examples;
-using ErrorOr;
-using FluentValidation;
-using Microsoft.Extensions.Logging;
 
 namespace RentifyxAssetRegistry.Application.Features.Examples.Handlers.GetAll;
 

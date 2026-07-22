@@ -1,7 +1,7 @@
+﻿using ErrorOr;
 using RentifyxAssetRegistry.Api.Abstract;
 using RentifyxAssetRegistry.Api.Extensions;
 using RentifyxAssetRegistry.Application.Common.Handler;
-using ErrorOr;
 
 namespace RentifyxAssetRegistry.Api.Endpoints.Examples;
 

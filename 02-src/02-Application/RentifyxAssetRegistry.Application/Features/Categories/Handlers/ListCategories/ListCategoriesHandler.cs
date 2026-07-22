@@ -1,10 +1,10 @@
+﻿using ErrorOr;
+using Microsoft.Extensions.Logging;
 using RentifyxAssetRegistry.Application.Common.Handler;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.ListCategories.Request;
 using RentifyxAssetRegistry.Application.Features.Categories.Mapper;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Interfaces.Category;
-using ErrorOr;
-using Microsoft.Extensions.Logging;
 
 namespace RentifyxAssetRegistry.Application.Features.Categories.Handlers.ListCategories;
 

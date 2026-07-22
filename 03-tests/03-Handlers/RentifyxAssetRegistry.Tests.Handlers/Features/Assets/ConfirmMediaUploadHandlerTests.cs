@@ -1,3 +1,7 @@
+﻿using ErrorOr;
+using FluentAssertions;
+using Microsoft.Extensions.Logging.Abstractions;
+using Moq;
 using RentifyxAssetRegistry.Application.Features.Assets;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ConfirmMediaUpload;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ConfirmMediaUpload.Request;
@@ -6,10 +10,6 @@ using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Events.Asset;
 using RentifyxAssetRegistry.Domain.Interfaces.Asset;
 using RentifyxAssetRegistry.Domain.ValueObjects;
-using ErrorOr;
-using FluentAssertions;
-using Microsoft.Extensions.Logging.Abstractions;
-using Moq;
 using Xunit;
 
 namespace RentifyxAssetRegistry.Tests.Handlers.Features.Assets;

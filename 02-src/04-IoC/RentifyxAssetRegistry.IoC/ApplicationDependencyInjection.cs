@@ -1,3 +1,6 @@
+﻿using ErrorOr;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using RentifyxAssetRegistry.Application.Common.Handler;
 using RentifyxAssetRegistry.Application.Features.Assets;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ConfirmMediaUpload;
@@ -31,9 +34,6 @@ using RentifyxAssetRegistry.Application.Features.Examples.Handlers.Update.Reques
 using RentifyxAssetRegistry.Application.Features.Examples.Handlers.Update.Validator;
 using RentifyxAssetRegistry.Domain.Common;
 using RentifyxAssetRegistry.Domain.Entities;
-using ErrorOr;
-using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace RentifyxAssetRegistry.IoC;
 

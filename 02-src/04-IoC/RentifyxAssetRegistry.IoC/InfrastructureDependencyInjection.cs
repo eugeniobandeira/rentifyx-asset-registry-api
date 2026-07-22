@@ -1,4 +1,9 @@
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Interfaces;
 using RentifyxAssetRegistry.Domain.Interfaces.Common;
@@ -6,11 +11,6 @@ using RentifyxAssetRegistry.Domain.Interfaces.Examples;
 using RentifyxAssetRegistry.Infrastructure.Constants;
 using RentifyxAssetRegistry.Infrastructure.Context;
 using RentifyxAssetRegistry.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 
 namespace RentifyxAssetRegistry.IoC;
 

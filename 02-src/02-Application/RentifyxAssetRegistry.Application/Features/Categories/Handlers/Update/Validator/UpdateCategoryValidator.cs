@@ -1,6 +1,6 @@
+﻿using FluentValidation;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Update.Request;
 using RentifyxAssetRegistry.Domain.MessageResource;
-using FluentValidation;
 
 namespace RentifyxAssetRegistry.Application.Features.Categories.Handlers.Update.Validator;
 

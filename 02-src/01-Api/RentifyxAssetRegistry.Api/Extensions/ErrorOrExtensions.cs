@@ -1,5 +1,5 @@
+﻿using ErrorOr;
 using RentifyxAssetRegistry.Domain.Constants;
-using ErrorOr;
 
 namespace RentifyxAssetRegistry.Api.Extensions;
 

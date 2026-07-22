@@ -1,7 +1,7 @@
+﻿using FluentAssertions;
+using FluentValidation.Results;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Update.Request;
 using RentifyxAssetRegistry.Application.Features.Categories.Handlers.Update.Validator;
-using FluentAssertions;
-using FluentValidation.Results;
 using Xunit;
 
 namespace RentifyxAssetRegistry.Tests.Validators.Features.Categories;
