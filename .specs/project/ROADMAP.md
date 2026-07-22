@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M2 — Domain Model & Core Asset Logic (complete) → next up M1 remaining items or M3
-**Status:** M1 template scaffold present (EF Core/Postgres default, not yet swapped to DynamoDB); M2 domain model complete (E-02, 2026-07-22)
+**Current Milestone:** M1 CI/CD slice complete, M2 complete → next up M1 secrets/JWT slice or M3
+**Status:** M1 CI/CD gates done (E-01/F-02, 2026-07-22); M1 secrets/JWT (US-004) and DynamoDB swap still open; M2 domain model complete (E-02, 2026-07-22)
 
 ---
 
@@ -20,11 +20,14 @@
 - **Open:** swap generated EF Core/Npgsql `Infrastructure` (AppDbContext, migrations, generic `IAddRepository<T>`/`IUnitOfWork`) for DynamoDB — plan's stack has no relational DB
 - **Open:** LocalStack container in AppHost (DynamoDB, S3, KMS) + init scripts
 
-**CI/CD Pipeline & DevSecOps Baseline** — PLANNED
+**CI/CD Pipeline & DevSecOps Baseline** — PARTIALLY DONE (F-02 CI gates, 2026-07-22; see `.specs/features/e01-foundation-devsecops/spec.md`)
 
-- GitHub Actions base workflow exists (`ci.yml`) — needs coverage gate ≥80%, OWASP dependency-check, Trivy scan, branch protection
-- `ISecretsProvider` abstraction, AWS Secrets Manager wiring, JWT validation against identity-api's HS256 signing key
-- ADR-AR-001: reuse of identity-api's HS256 JWT validation pattern
+- ~~Coverage gate ≥80%~~ — intentionally NOT added, D-002
+- OWASP dependency-check (fail on CVSS ≥ 7) — DONE
+- Trivy container scan (fail on CRITICAL/HIGH) — DONE
+- Branch protection: `master` requires CI green + 1 review — DONE
+- `ISecretsProvider` abstraction, AWS Secrets Manager wiring, JWT validation against identity-api's HS256 signing key — PLANNED (US-004, separate slice)
+- ADR-AR-001: reuse of identity-api's HS256 JWT validation pattern — PLANNED
 
 ---
 
