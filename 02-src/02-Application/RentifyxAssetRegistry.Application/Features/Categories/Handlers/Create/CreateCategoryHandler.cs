@@ -41,14 +41,10 @@ public sealed class CreateCategoryHandler(
             if (parent is null)
                 return Error.NotFound(CategoryErrorCodes.NotFound, $"Category {request.ParentCategoryId} not found.");
 
-            try
-            {
-                category = CategoryEntity.CreateChild(request.Name, parent);
-            }
-            catch (ArgumentException ex)
-            {
-                return Error.Validation(CategoryErrorCodes.MaxDepthExceeded, ex.Message);
-            }
+            if (!parent.CanAcceptChild)
+                return Error.Validation(CategoryErrorCodes.MaxDepthExceeded, $"Cannot create a child category under a parent at depth {parent.Depth}.");
+
+            category = CategoryEntity.CreateChild(request.Name, parent);
         }
 
         await repository.SaveAsync(category, ct);

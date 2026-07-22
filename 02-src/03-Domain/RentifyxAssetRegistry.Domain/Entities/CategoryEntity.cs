@@ -10,6 +10,8 @@ public sealed class CategoryEntity : AggregateRoot
     public Guid? ParentCategoryId { get; private set; }
     public int Depth { get; private set; }
 
+    public bool CanAcceptChild => Depth < ValidationConstants.CategoryRules.MaxDepth;
+
     private CategoryEntity() { }
 
     public static CategoryEntity CreateRoot(string name)
@@ -32,7 +34,7 @@ public sealed class CategoryEntity : AggregateRoot
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
         ArgumentNullException.ThrowIfNull(parent);
 
-        if (parent.Depth >= ValidationConstants.CategoryRules.MaxDepth)
+        if (!parent.CanAcceptChild)
         {
             throw new ArgumentException(
                 $"Cannot create a child category under a parent at depth {parent.Depth}; max depth is {ValidationConstants.CategoryRules.MaxDepth}.",
@@ -64,7 +66,7 @@ public sealed class CategoryEntity : AggregateRoot
             throw new ArgumentException("A category cannot be re-parented to itself.", nameof(newParent));
         }
 
-        if (newParent.Depth >= ValidationConstants.CategoryRules.MaxDepth)
+        if (!newParent.CanAcceptChild)
         {
             throw new ArgumentException(
                 $"Cannot re-parent under a category at depth {newParent.Depth}; max depth is {ValidationConstants.CategoryRules.MaxDepth}.",
