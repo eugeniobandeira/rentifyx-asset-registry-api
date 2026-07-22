@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M1 — Project Foundation & DevSecOps Pipeline
-**Status:** In Progress — template scaffold generated (EF Core/Postgres default), not yet swapped to DynamoDB
+**Current Milestone:** M2 — Domain Model & Core Asset Logic (complete) → next up M1 remaining items or M3
+**Status:** M1 template scaffold present (EF Core/Postgres default, not yet swapped to DynamoDB); M2 domain model complete (E-02, 2026-07-22)
 
 ---
 
@@ -32,18 +32,19 @@
 
 **Goal:** Pure domain — Asset aggregate, Category, Media VOs, status lifecycle, zero framework deps.
 **Target:** Day 4–7 — E-02
+**Status:** DONE (2026-07-22) — see `.specs/features/e02-domain-model/` and STATE.md Feature Completion Log
 
 ### Features
 
-**Asset Aggregate & Value Objects** — PLANNED
+**Asset Aggregate & Value Objects** — DONE
 
 - Asset aggregate root, AssetTitle/AssetDescription/Money/Media value objects, AssetStatus enum, Category entity
 - Domain events: `AssetCreated`, `AssetMediaUploaded`, `AssetPublished`, `AssetSuspended`
 
-**Domain Services & Repository Contracts** — PLANNED
+**Domain Services & Repository Contracts** — DONE
 
 - `IAssetRepository`, `ICategoryRepository`, `IMediaStorageService`, `IOwnerStatusValidator`
-- 100% unit-tested domain layer, ADR-AR-002/003 (status lifecycle, Category as entity)
+- 100% unit-tested domain layer (60/60 in new `Tests.Domain` project), ADR-AR-002/003 (status lifecycle, Category as entity)
 
 ---
 
