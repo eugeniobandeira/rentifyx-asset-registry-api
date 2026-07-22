@@ -80,4 +80,16 @@
   <data name="IDEMPOTENCY_KEY_REQUIRED" xml:space="preserve">
     <value>IdempotencyKey is required.</value>
   </data>
+  <data name="ASSET_ID_REQUIRED" xml:space="preserve">
+    <value>AssetId is required.</value>
+  </data>
+  <data name="MIME_TYPE_INVALID" xml:space="preserve">
+    <value>MimeType is not an allowed media type.</value>
+  </data>
+  <data name="SIZE_BYTES_INVALID" xml:space="preserve">
+    <value>SizeBytes must be greater than zero.</value>
+  </data>
+  <data name="S3_KEY_REQUIRED" xml:space="preserve">
+    <value>S3Key is required.</value>
+  </data>
 </root>
