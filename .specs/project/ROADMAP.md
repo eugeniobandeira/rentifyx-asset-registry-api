@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M3 in progress (F-05 US-010 done) — M1 complete except DynamoDB swap (E-04), M2 complete
-**Status:** M3/F-05 Asset Creation (US-010) done 2026-07-22, split per-feature since E-04/Infrastructure doesn't exist yet; US-011 (Draft TTL) deferred to alongside E-04
+**Current Milestone:** M3 in progress (F-05, F-06 done) — M1 complete except DynamoDB swap (E-04), M2 complete
+**Status:** M3/F-06 Media Upload Pipeline (US-012) done 2026-07-22; F-05 done 2026-07-22; both split per-feature since E-04/Infrastructure doesn't exist yet
 
 ---
 
@@ -64,9 +64,9 @@
 - `AssetCreated` Kafka outbox publish — N/A here by design: handler never publishes directly, DynamoDB Streams outbox (E-04, ADR-AR-010) picks up the event already raised on the entity
 - Draft TTL (30 days, ADR-AR-004) — DEFERRED (US-011, DynamoDB TTL is an E-04 concern)
 
-**Media Upload Pipeline** — PLANNED
+**Media Upload Pipeline** — DONE (US-012 done 2026-07-22, see `.specs/features/e03-f06-media-upload/spec.md`)
 
-- `RequestMediaUpload` (pre-validate size/MIME before presigned URL — ADR-AR-005), `ConfirmMediaUpload`
+- `RequestMediaUpload` (pre-validate size/MIME before presigned URL — ADR-AR-005), `ConfirmMediaUpload` — DONE
 
 **Categorization** — PLANNED
 

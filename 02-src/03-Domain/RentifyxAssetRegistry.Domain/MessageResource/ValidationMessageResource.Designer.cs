@@ -185,5 +185,41 @@ namespace RentifyxAssetRegistry.Domain.MessageResource {
                 return ResourceManager.GetString("IDEMPOTENCY_KEY_REQUIRED", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to AssetId is required..
+        /// </summary>
+        public static string ASSET_ID_REQUIRED {
+            get {
+                return ResourceManager.GetString("ASSET_ID_REQUIRED", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to MimeType is not an allowed media type..
+        /// </summary>
+        public static string MIME_TYPE_INVALID {
+            get {
+                return ResourceManager.GetString("MIME_TYPE_INVALID", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to SizeBytes must be greater than zero..
+        /// </summary>
+        public static string SIZE_BYTES_INVALID {
+            get {
+                return ResourceManager.GetString("SIZE_BYTES_INVALID", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to S3Key is required..
+        /// </summary>
+        public static string S3_KEY_REQUIRED {
+            get {
+                return ResourceManager.GetString("S3_KEY_REQUIRED", resourceCulture);
+            }
+        }
     }
 }
