@@ -28,6 +28,9 @@
     <Project Path="02-src/05-Infrastructure/RentifyxAssetRegistry.Infrastructure/RentifyxAssetRegistry.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/03-tests/" />
+  <Folder Name="/03-tests/00-Domain/">
+    <Project Path="03-tests/00-Domain/RentifyxAssetRegistry.Tests.Domain/RentifyxAssetRegistry.Tests.Domain.csproj" />
+  </Folder>
   <Folder Name="/03-tests/01-Common/">
     <Project Path="03-tests/01-Common/RentifyxAssetRegistry.Tests.Common/RentifyxAssetRegistry.Tests.Common.csproj" />
   </Folder>
