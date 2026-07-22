@@ -92,4 +92,7 @@
   <data name="S3_KEY_REQUIRED" xml:space="preserve">
     <value>S3Key is required.</value>
   </data>
+  <data name="CATEGORY_NAME_REQUIRED" xml:space="preserve">
+    <value>Category name is required.</value>
+  </data>
 </root>
