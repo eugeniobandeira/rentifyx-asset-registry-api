@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\02-src\02-Application\rentifyx_asset_registry_api.Application\rentifyx_asset_registry_api.Application.csproj" />
+    <ProjectReference Include="..\..\..\02-src\03-Domain\rentifyx_asset_registry_api.Domain\rentifyx_asset_registry_api.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Bogus" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="FluentAssertions" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,6 @@
+namespace rentifyx_asset_registry_api.Application.Features.Examples.Handlers.Update.Request;
+
+public sealed record UpdateExampleRequest(string Name, string Description)
+{
+    public Guid Id { get; init; }
+}

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.3.1" />
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsAspireHost>true</IsAspireHost>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\01-aspire\02-ServiceDefaults\rentifyx_asset_registry_api.ServiceDefaults\rentifyx_asset_registry_api.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\..\02-src\01-Api\rentifyx_asset_registry_api.Api\rentifyx_asset_registry_api.Api.csproj" />
+  </ItemGroup>
+</Project>

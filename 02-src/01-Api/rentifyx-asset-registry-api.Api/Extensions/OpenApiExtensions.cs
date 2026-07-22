@@ -1,0 +1,49 @@
+using Microsoft.OpenApi;
+using Scalar.AspNetCore;
+
+namespace rentifyx_asset_registry_api.Api.Extensions;
+
+public static class OpenApiExtensions
+{
+    public static IServiceCollection AddOpenApiDocumentation(this IServiceCollection services, IConfiguration configuration)
+    {
+        string contactName = configuration["OpenApi:ContactName"]!;
+        string contactUrl = configuration["OpenApi:ContactUrl"]!;
+
+        services.AddOpenApi(options =>
+        {
+            options.AddDocumentTransformer((document, context, _) =>
+            {
+                document.Info = new OpenApiInfo
+                {
+                    Title = "rentifyx_asset_registry_api API",
+                    Version = "v1",
+                    Description = "API generated with Clean Architecture Template",
+                    Contact = new OpenApiContact
+                    {
+                        Name = contactName,
+                        Url = new Uri(contactUrl)
+                    }
+                };
+
+                return Task.CompletedTask;
+            });
+        });
+
+        return services;
+    }
+
+    public static IApplicationBuilder UseOpenApiDocumentation(this WebApplication app)
+    {
+        app.MapOpenApi();
+        app.MapScalarApiReference(options =>
+        {
+            options.Title = "rentifyx_asset_registry_api API";
+            options.Theme = ScalarTheme.DeepSpace;
+            options.TagSorter = TagSorter.Alpha;
+            options.OperationSorter = OperationSorter.Alpha;
+        });
+
+        return app;
+    }
+}

@@ -1,0 +1,69 @@
+## .NET / C# gitignore
+
+# Build output
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.DotSettings.user
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# MSBuild
+*.log
+*.binlog
+
+# Publish output
+publish/
+out/
+
+# Test results
+TestResults/
+*.trx
+*.coveragexml
+*.coverage
+
+# User-specific files
+*.rsuser
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Environment / secrets
+.env
+.env.*
+*.env
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# Logs
+logs/
+*.log
+
+# Node (caso haja front junto)
+node_modules/
+npm-debug.log*

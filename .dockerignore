@@ -1,0 +1,47 @@
+## .NET / Docker build ignore
+
+# Build output
+**/bin/
+**/obj/
+
+# Visual Studio / IDE
+.vs/
+.idea/
+*.user
+*.suo
+
+# Git
+.git/
+.gitignore
+
+# Docs and config extras
+docs/
+iac/
+k8s/
+README.md
+*.md
+
+# Test results
+**/TestResults/
+*.trx
+*.coveragexml
+*.coverage
+
+# Environment / secrets
+.env
+.env.*
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Logs
+logs/
+*.log
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
