@@ -2,9 +2,11 @@
 
 ## Last Updated
 
-2026-07-21
+2026-07-22
 
 ## Current Work
+
+**2026-07-22 session, part 3: E-01/US-004 Secrets & Cross-Service Auth complete (branch `feat/e01-secrets-jwt`), M1 fully done.** Research into the actual `rentifyx-identity-api` repo found the plan's/CLAUDE.md's original HS256 assumption was wrong — `identity-api` signs with RS256 (its own ADR-006), and no real `ISecretsProvider` interface exists anywhere (only a `SecretsManagerConfigurationProvider`/`AddSecretsManager()` config-builder pattern). Corrected CLAUDE.md and copied the working pattern: secrets load from AWS Secrets Manager via a config provider (skips the AWS call in `Testing` environment, tolerates not-yet-seeded secrets), JWT bearer auth validates RS256 tokens against `identity-api`'s public key. ADR-AR-001 written (superseding the plan's HS256 assumption). `UseAuthentication`/`UseAuthorization` wired in `Program.cs`. Role-based authorization for admin endpoints is explicitly out of scope here (E-05). M1 (E-01) is now fully complete: F-01 scaffold, F-02 CI/CD gates, US-004 secrets/JWT all done; only the EF Core→DynamoDB swap (D-001) remains open, deferred to E-04 by design.
 
 **2026-07-22 session, part 2: E-01/F-02 CI/CD Pipeline & DevSecOps Baseline complete (branch `feat/e01-cicd-devsecops`).** Added OWASP dependency-check (fails on CVSS ≥ 7) and Trivy container scan (fails on CRITICAL/HIGH) to `ci.yml`. Configured `master` branch protection via `gh api`: required status check `build-and-test` + 1 approving review, force-push/delete blocked. Coverage gate (plan's T-016) intentionally NOT added — see D-002. Secrets/JWT slice (US-004, T-020–T-023) deliberately deferred, not part of this pass. This is the first epic run under the new per-epic branch+PR workflow (see feedback memory `feedback_epic-workflow.md`).
 
@@ -56,3 +58,4 @@ _None active._
 |---|---|---|---|
 | E-02 Domain Model & Core Asset Logic | 22/22 | 60/60 (Tests.Domain) | 2026-07-22 |
 | E-01/F-02 CI/CD Pipeline & DevSecOps Baseline | 3/3 (CICD-01/02/03) | n/a (CI config) | 2026-07-22 |
+| E-01/US-004 Secrets & Cross-Service Auth | 3/3 (SEC-01/02/03) | n/a (build+config, verified via full test suite) | 2026-07-22 |

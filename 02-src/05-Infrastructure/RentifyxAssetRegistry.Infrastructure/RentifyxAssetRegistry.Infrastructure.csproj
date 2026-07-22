@@ -11,5 +11,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="AWSSDK.SecretsManager" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
   </ItemGroup>
 </Project>

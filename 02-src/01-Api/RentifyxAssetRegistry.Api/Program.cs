@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using RentifyxAssetRegistry.Api.Extensions;
 using RentifyxAssetRegistry.Api.Middlewares;
+using RentifyxAssetRegistry.Infrastructure.Configuration;
 using RentifyxAssetRegistry.IoC;
 using RentifyxAssetRegistry.ServiceDefaults;
 using Serilog;
@@ -14,6 +15,8 @@ try
     WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
     builder.AddServiceDefaults();
+
+    builder.Configuration.AddSecretsManager(builder.Configuration);
 
     builder.Host.UseSerilog((context, services, configuration) => configuration
         .ReadFrom.Configuration(context.Configuration)
@@ -59,6 +62,8 @@ try
     if (!app.Environment.IsDevelopment())
         app.UseHttpsRedirection();
     app.UseCorsPolicy();
+    app.UseAuthentication();
+    app.UseAuthorization();
     app.MapEndpoints();
 
     await app.RunAsync();

@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M1 CI/CD slice complete, M2 complete → next up M1 secrets/JWT slice or M3
-**Status:** M1 CI/CD gates done (E-01/F-02, 2026-07-22); M1 secrets/JWT (US-004) and DynamoDB swap still open; M2 domain model complete (E-02, 2026-07-22)
+**Current Milestone:** M1 complete (except DynamoDB swap, deferred to E-04), M2 complete → next up M3
+**Status:** M1 CI/CD gates + secrets/JWT done (2026-07-22); DynamoDB swap (D-001) intentionally deferred to E-04; M2 domain model complete (E-02, 2026-07-22)
 
 ---
 
@@ -26,8 +26,8 @@
 - OWASP dependency-check (fail on CVSS ≥ 7) — DONE
 - Trivy container scan (fail on CRITICAL/HIGH) — DONE
 - Branch protection: `master` requires CI green + 1 review — DONE
-- `ISecretsProvider` abstraction, AWS Secrets Manager wiring, JWT validation against identity-api's HS256 signing key — PLANNED (US-004, separate slice)
-- ADR-AR-001: reuse of identity-api's HS256 JWT validation pattern — PLANNED
+- AWS Secrets Manager wiring (`SecretsManagerConfigurationProvider`/`AddSecretsManager()`, copied from identity-api's real pattern — no literal `ISecretsProvider` interface exists anywhere), RS256 JWT validation against identity-api's public key — DONE (2026-07-22)
+- ADR-AR-001: RS256 JWT validation (corrected from the plan's original HS256 assumption) — DONE
 
 ---
 
