@@ -54,6 +54,37 @@ public sealed class AssetEntity : AggregateRoot
         return asset;
     }
 
+    /// <summary>
+    /// Reconstructs an <see cref="AssetEntity"/> from persisted storage without raising domain
+    /// events — used by repository mappers hydrating an entity that already exists in DynamoDB.
+    /// </summary>
+    public static AssetEntity FromPersistence(
+        Guid id,
+        Guid ownerId,
+        AssetTitle title,
+        AssetDescription description,
+        Money price,
+        Guid categoryId,
+        AssetStatus status,
+        string idempotencyKey,
+        DateTime createdAt,
+        DateTime? updatedAt)
+    {
+        return new AssetEntity
+        {
+            Id = id,
+            OwnerId = ownerId,
+            Title = title,
+            Description = description,
+            Price = price,
+            CategoryId = categoryId,
+            Status = status,
+            IdempotencyKey = idempotencyKey,
+            CreatedAt = createdAt,
+            UpdatedAt = updatedAt
+        };
+    }
+
     public void AttachMedia(Media media)
     {
         RaiseDomainEvent(new AssetMediaUploaded(Id, media.S3Key, DateTime.UtcNow));

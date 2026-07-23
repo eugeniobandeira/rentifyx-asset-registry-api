@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Sdk Name="Aspire.AppHost.Sdk" Version="9.3.1" />
+  <Sdk Name="Aspire.AppHost.Sdk" Version="13.4.6" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <IsAspireHost>true</IsAspireHost>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.Kafka" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\01-aspire\02-ServiceDefaults\RentifyxAssetRegistry.ServiceDefaults\RentifyxAssetRegistry.ServiceDefaults.csproj" />

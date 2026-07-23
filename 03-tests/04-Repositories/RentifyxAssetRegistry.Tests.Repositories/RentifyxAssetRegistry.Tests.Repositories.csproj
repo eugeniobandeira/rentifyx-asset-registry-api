@@ -5,6 +5,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\02-src\03-Domain\RentifyxAssetRegistry.Domain\RentifyxAssetRegistry.Domain.csproj" />
     <ProjectReference Include="..\..\..\02-src\05-Infrastructure\RentifyxAssetRegistry.Infrastructure\RentifyxAssetRegistry.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\02-src\01-Api\RentifyxAssetRegistry.Api\RentifyxAssetRegistry.Api.csproj" />
     <ProjectReference Include="..\..\01-Common\RentifyxAssetRegistry.Tests.Common\RentifyxAssetRegistry.Tests.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -19,5 +20,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Testcontainers.LocalStack" />
+    <PackageReference Include="Testcontainers.Kafka" />
+    <PackageReference Include="Confluent.Kafka" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
   </ItemGroup>
 </Project>

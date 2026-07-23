@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\03-Domain\RentifyxAssetRegistry.Domain\RentifyxAssetRegistry.Domain.csproj" />
+    <ProjectReference Include="..\..\05-Infrastructure\RentifyxAssetRegistry.Infrastructure\RentifyxAssetRegistry.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ErrorOr" />
