@@ -61,11 +61,47 @@ namespace RentifyxAssetRegistry.Domain.MessageResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AssetId is required..
+        /// </summary>
+        public static string ASSET_ID_REQUIRED {
+            get {
+                return ResourceManager.GetString("ASSET_ID_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CategoryId is required..
+        /// </summary>
+        public static string CATEGORY_ID_REQUIRED {
+            get {
+                return ResourceManager.GetString("CATEGORY_ID_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category name is required..
+        /// </summary>
+        public static string CATEGORY_NAME_REQUIRED {
+            get {
+                return ResourceManager.GetString("CATEGORY_NAME_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description must not exceed {MaxLength} characters..
         /// </summary>
         public static string DESCRIPTION_MAX_LENGTH {
             get {
                 return ResourceManager.GetString("DESCRIPTION_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description must be at least {MinLength} characters..
+        /// </summary>
+        public static string DESCRIPTION_MIN_LENGTH {
+            get {
+                return ResourceManager.GetString("DESCRIPTION_MIN_LENGTH", resourceCulture);
             }
         }
         
@@ -79,69 +115,6 @@ namespace RentifyxAssetRegistry.Domain.MessageResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PageSize must be between {MinPageSize} and {MaxPageSize}..
-        /// </summary>
-        public static string PAGE_SIZE_INVALID {
-            get {
-                return ResourceManager.GetString("PAGE_SIZE_INVALID", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Title is required..
-        /// </summary>
-        public static string TITLE_REQUIRED {
-            get {
-                return ResourceManager.GetString("TITLE_REQUIRED", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Title must be at least {MinLength} characters..
-        /// </summary>
-        public static string TITLE_MIN_LENGTH {
-            get {
-                return ResourceManager.GetString("TITLE_MIN_LENGTH", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Title must not exceed {MaxLength} characters..
-        /// </summary>
-        public static string TITLE_MAX_LENGTH {
-            get {
-                return ResourceManager.GetString("TITLE_MAX_LENGTH", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Description must be at least {MinLength} characters..
-        /// </summary>
-        public static string DESCRIPTION_MIN_LENGTH {
-            get {
-                return ResourceManager.GetString("DESCRIPTION_MIN_LENGTH", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to OwnerId is required..
-        /// </summary>
-        public static string OWNER_ID_REQUIRED {
-            get {
-                return ResourceManager.GetString("OWNER_ID_REQUIRED", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to CategoryId is required..
-        /// </summary>
-        public static string CATEGORY_ID_REQUIRED {
-            get {
-                return ResourceManager.GetString("CATEGORY_ID_REQUIRED", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to IdempotencyKey is required..
         /// </summary>
         public static string IDEMPOTENCY_KEY_REQUIRED {
@@ -149,16 +122,7 @@ namespace RentifyxAssetRegistry.Domain.MessageResource {
                 return ResourceManager.GetString("IDEMPOTENCY_KEY_REQUIRED", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to AssetId is required..
-        /// </summary>
-        public static string ASSET_ID_REQUIRED {
-            get {
-                return ResourceManager.GetString("ASSET_ID_REQUIRED", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to MimeType is not an allowed media type..
         /// </summary>
@@ -167,34 +131,25 @@ namespace RentifyxAssetRegistry.Domain.MessageResource {
                 return ResourceManager.GetString("MIME_TYPE_INVALID", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to SizeBytes must be greater than zero..
+        ///   Looks up a localized string similar to OwnerId is required..
         /// </summary>
-        public static string SIZE_BYTES_INVALID {
+        public static string OWNER_ID_REQUIRED {
             get {
-                return ResourceManager.GetString("SIZE_BYTES_INVALID", resourceCulture);
+                return ResourceManager.GetString("OWNER_ID_REQUIRED", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to S3Key is required..
+        ///   Looks up a localized string similar to PageSize must be between {MinPageSize} and {MaxPageSize}..
         /// </summary>
-        public static string S3_KEY_REQUIRED {
+        public static string PAGE_SIZE_INVALID {
             get {
-                return ResourceManager.GetString("S3_KEY_REQUIRED", resourceCulture);
+                return ResourceManager.GetString("PAGE_SIZE_INVALID", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Category name is required..
-        /// </summary>
-        public static string CATEGORY_NAME_REQUIRED {
-            get {
-                return ResourceManager.GetString("CATEGORY_NAME_REQUIRED", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Price must be greater than or equal to zero..
         /// </summary>
@@ -203,13 +158,58 @@ namespace RentifyxAssetRegistry.Domain.MessageResource {
                 return ResourceManager.GetString("PRICE_INVALID", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to MinPrice must not be greater than MaxPrice..
         /// </summary>
         public static string PRICE_RANGE_INVALID {
             get {
                 return ResourceManager.GetString("PRICE_RANGE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S3Key is required..
+        /// </summary>
+        public static string S3_KEY_REQUIRED {
+            get {
+                return ResourceManager.GetString("S3_KEY_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SizeBytes must be greater than zero..
+        /// </summary>
+        public static string SIZE_BYTES_INVALID {
+            get {
+                return ResourceManager.GetString("SIZE_BYTES_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title must not exceed {MaxLength} characters..
+        /// </summary>
+        public static string TITLE_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("TITLE_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title must be at least {MinLength} characters..
+        /// </summary>
+        public static string TITLE_MIN_LENGTH {
+            get {
+                return ResourceManager.GetString("TITLE_MIN_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title is required..
+        /// </summary>
+        public static string TITLE_REQUIRED {
+            get {
+                return ResourceManager.GetString("TITLE_REQUIRED", resourceCulture);
             }
         }
     }

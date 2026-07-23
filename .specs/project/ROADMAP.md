@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M3 DONE (F-05, F-06, F-07, F-08, F-09 all done) — M1 complete except DynamoDB swap (E-04), M2 complete
-**Status:** M3/F-09 Moderation Workflow (US-015) done 2026-07-22, closing E-03; all features split per-feature since E-04/Infrastructure doesn't exist yet
+**Current Milestone:** M4 IN PROGRESS — F-10 DynamoDB Repository & Outbox and F-11 S3 Media Storage both DONE (2026-07-23); F-12 Cross-Service Integration not started. M1-M3 complete.
+**Status:** F-10/F-11 landed 2026-07-23 (181/181 tests green across the full solution); F-12 (owner-status Kafka consumer, moderation-verdict Kafka consumer) is the only remaining E-04 work before M4 closes.
 
 ---
 
@@ -93,15 +93,16 @@
 
 ### Features
 
-**DynamoDB Repository & Outbox** — PLANNED
+**DynamoDB Repository & Outbox** — DONE (2026-07-23, see `.specs/features/e04-f10-dynamodb-repository/`)
 
-- `DynamoDbAssetRepository`/`DynamoDbCategoryRepository`, single-table design (ADR-AR-009)
-- DynamoDB Streams as Outbox mechanism (ADR-AR-010, consistent with identity-api's DEF-005 resolution), DLQ after 3 retries
+- `DynamoDbAssetRepository`/`DynamoDbCategoryRepository`, single-table design (ADR-AR-009) — DONE
+- Outbox delivery via `PeriodicTimer` poll-loop `OutboxPublisher` `IHostedService` (ADR-AR-010) — DONE. **Correction:** the plan's original text said "DynamoDB Streams, consistent with identity-api's DEF-005" — that was wrong, identity-api's real DEF-005 rejected Streams (no Lambda/compute available) in favor of the same poll-loop pattern implemented here.
+- Cursor-paginated `SearchAsync` (GSI2/GSI4 + FilterExpression), `PageTokenCodec`, `InvalidPageTokenException` translated to `Error.Validation` at `SearchAssetsHandler` — DONE
 
-**S3 Media Storage** — PLANNED
+**S3 Media Storage** — DONE (2026-07-23)
 
-- Terraform S3 bucket (CORS scoped to `rentifyx-web`), presigned-URL-only bucket policy, multipart cleanup lifecycle
-- `S3MediaStorageService` real key-generation implementation — confirm the `assets/{ownerId}/{assetId}/{filename}` convention against `rentifyx-ai-services`'s `AssetKeyConventionFilter` before finalizing (STATE.md G-001)
+- `S3MediaStorageService` real presigned-URL + `ValidateUploadAsync` implementation via AWSSDK.S3, `assets/{ownerId}/{assetId}/{filename}` key convention confirmed cross-repo against `rentifyx-ai-services`'s `AssetKeyConventionFilter` (STATE.md G-001 resolved) — DONE
+- Terraform S3 bucket (CORS, presigned-URL-only bucket policy, multipart cleanup lifecycle) — still PLANNED, deferred to E-06 (`iac/` has no module scaffolding for any resource yet, documented as a Known Gap in F-11's spec.md)
 
 **Cross-Service Integration** — PLANNED
 

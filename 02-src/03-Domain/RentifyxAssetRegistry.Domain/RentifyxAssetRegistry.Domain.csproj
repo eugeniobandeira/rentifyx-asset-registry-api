@@ -3,13 +3,6 @@
     <NoWarn>$(NoWarn);CA1824</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="MessageResource\ValidationMessageResource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ValidationMessageResource.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Update="MessageResource\ValidationMessageResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ValidationMessageResource.Designer.cs</LastGenOutput>
@@ -17,5 +10,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="MessageResource\ValidationMessageResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ValidationMessageResource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

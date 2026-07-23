@@ -1,5 +1,4 @@
-﻿using ErrorOr;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using RentifyxAssetRegistry.Application.Common.Handler;
 using RentifyxAssetRegistry.Application.Features.Assets;
