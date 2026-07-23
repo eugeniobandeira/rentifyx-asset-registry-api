@@ -217,13 +217,13 @@
 
 **US-020** — As a client, I want clean REST endpoints for the asset catalog
 - [ ] T-101 `[AUTO]` Endpoint auto-registration via IEndpoint reflection
-- [ ] T-102 Api/Endpoints/Assets/Create.cs → `POST /v1/api/assets`
-- [ ] T-103 Api/Endpoints/Assets/GetById.cs → `GET /v1/api/assets/{id}`
-- [ ] T-104 Api/Endpoints/Assets/Search.cs → `GET /v1/api/assets/search`
-- [ ] T-105 Api/Endpoints/Assets/RequestMediaUpload.cs → `POST /v1/api/assets/{id}/media/upload-url`
-- [ ] T-106 Api/Endpoints/Assets/ConfirmMediaUpload.cs → `POST /v1/api/assets/{id}/media/confirm`
+- [ ] T-102 Api/Endpoints/Assets/Create.cs → `POST /api/v1/assets`
+- [ ] T-103 Api/Endpoints/Assets/GetById.cs → `GET /api/v1/assets/{id}`
+- [ ] T-104 Api/Endpoints/Assets/Search.cs → `GET /api/v1/assets/search`
+- [ ] T-105 Api/Endpoints/Assets/RequestMediaUpload.cs → `POST /api/v1/assets/{id}/media/upload-url`
+- [ ] T-106 Api/Endpoints/Assets/ConfirmMediaUpload.cs → `POST /api/v1/assets/{id}/media/confirm`
 - [ ] T-107 Api/Endpoints/Categories/Create.cs, Update.cs, List.cs (admin-gated where applicable)
-- [ ] T-108 Api/Endpoints/Assets/AdminReview.cs → `POST /v1/api/assets/{id}/review` (admin-only)
+- [ ] T-108 Api/Endpoints/Assets/AdminReview.cs → `POST /api/v1/assets/{id}/review` (admin-only)
 
 **US-021** — As a security engineer, I want hardened HTTP middleware
 - [ ] T-109 `[AUTO]` GlobalExceptionHandler: no stack trace in responses

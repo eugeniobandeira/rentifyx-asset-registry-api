@@ -74,7 +74,7 @@ k8s/                  – Kustomize/Helm base + overlays (E-06)
 6. **API** – add endpoint file implementing `IEndpoint` in `Api/Endpoints/{Group}/`
    - No manual wiring needed for endpoints: reflection auto-discovers all `IEndpoint` implementations
    - Validators and handlers are registered explicitly in `ApplicationDependencyInjection` (one `AddScoped<IValidator<T>, ...>` / `AddScoped<IHandler<...>>` line per feature)
-   - All endpoints land under `/v1/api/` via versioned routing
+   - All endpoints land under `/api/v1/` via versioned routing
 7. **Tests** – unit tests in `03-Handlers/` and `02-Validators/`; integration tests in `05-Integration/`
 
 ### Result type
@@ -178,12 +178,12 @@ dotnet build RentifyxAssetRegistry.slnx --configuration Release
 
 ## CI/CD
 
-GitHub Actions (`ci.yml`) triggers on PRs to `master`:
+GitHub Actions (`ci.yml`) triggers on PRs to `main`:
 1. **Build & Test** – restore → build Release → test — DONE
 2. **Coverage gate** – ≥80% (coverlet + ReportGenerator) — intentionally NOT added, see STATE.md D-002
-3. **OWASP dependency-check** – NuGet vulnerability scan, fails on CVSS ≥ 7 — DONE, but **currently red on `master`** (STATE.md D-003/G-004): unpatched-upstream CVEs in `Google.Protobuf`/`Nerdbank.MessagePack`/`OpenTelemetry` and a CPE false-positive on `JsonPointer.Net`. A suppression file is owed, not yet written — check STATE.md before assuming a red PR check here means your change broke something.
+3. **OWASP dependency-check** – NuGet vulnerability scan, fails on CVSS ≥ 7 — DONE, but **currently red on `main`** (STATE.md D-003/G-004): unpatched-upstream CVEs in `Google.Protobuf`/`Nerdbank.MessagePack`/`OpenTelemetry` and a CPE false-positive on `JsonPointer.Net`. A suppression file is owed, not yet written — check STATE.md before assuming a red PR check here means your change broke something.
 4. **Trivy container scan** – blocks on CRITICAL/HIGH — DONE
-5. **Branch protection** – `master` requires `build-and-test` green + 1 PR review before merge — DONE (`enforce_admins` is off, so admin override is possible when the gate itself is the blocker, not the change under review — use sparingly, see STATE.md D-003 for the one precedent)
+5. **Branch protection** – `main` requires `build-and-test` green + 1 PR review before merge — DONE (`enforce_admins` is off, so admin override is possible when the gate itself is the blocker, not the change under review — use sparingly, see STATE.md D-003 for the one precedent)
 
 ## Security rules
 
