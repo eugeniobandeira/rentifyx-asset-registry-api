@@ -5,6 +5,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.SecretsManager" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
   </ItemGroup>
 </Project>
