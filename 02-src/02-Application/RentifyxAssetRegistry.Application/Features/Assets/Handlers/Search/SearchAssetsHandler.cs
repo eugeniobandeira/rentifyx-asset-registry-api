@@ -6,10 +6,12 @@ using RentifyxAssetRegistry.Application.Extensions;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Search.Request;
 using RentifyxAssetRegistry.Application.Features.Assets.Mapper;
 using RentifyxAssetRegistry.Domain.Common;
+using RentifyxAssetRegistry.Domain.Constants;
 using RentifyxAssetRegistry.Domain.Entities;
 using RentifyxAssetRegistry.Domain.Enums;
 using RentifyxAssetRegistry.Domain.Filters.Assets;
 using RentifyxAssetRegistry.Domain.Interfaces.Asset;
+using RentifyxAssetRegistry.Infrastructure.Persistence.Exceptions;
 
 namespace RentifyxAssetRegistry.Application.Features.Assets.Handlers.Search;
 
@@ -40,7 +42,17 @@ public sealed class SearchAssetsHandler(
             request.MaxPrice,
             keyword);
 
-        CursorPagedResult<AssetEntity> result = await repository.SearchAsync(filter, ct);
+        CursorPagedResult<AssetEntity> result;
+
+        try
+        {
+            result = await repository.SearchAsync(filter, ct);
+        }
+        catch (InvalidPageTokenException ex)
+        {
+            logger.LogDebug(ex, "Rejected search request with an invalid page token.");
+            return Error.Validation(AssetErrorCodes.InvalidPageToken, ex.Message);
+        }
 
         logger.LogDebug("Found {Count} assets.", result.Items.Count);
 

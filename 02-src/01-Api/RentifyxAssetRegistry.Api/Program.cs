@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using RentifyxAssetRegistry.Api.Extensions;
+using RentifyxAssetRegistry.Api.Messaging;
 using RentifyxAssetRegistry.Api.Middlewares;
 using RentifyxAssetRegistry.Infrastructure.Configuration;
 using RentifyxAssetRegistry.IoC;
@@ -39,6 +40,8 @@ try
     builder.Services.AddEndpoints();
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
+    builder.Services.AddOutboxPublishing(builder.Configuration);
+    builder.Services.AddHostedService<OutboxPublisher>();
 
     WebApplication app = builder.Build();
 
