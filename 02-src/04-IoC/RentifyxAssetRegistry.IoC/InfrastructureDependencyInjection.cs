@@ -1,12 +1,18 @@
 ﻿using System.Security.Cryptography;
+using Amazon;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using Amazon.S3;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using RentifyxAssetRegistry.Domain.Interfaces.Asset;
+using RentifyxAssetRegistry.Domain.Interfaces.Category;
 using RentifyxAssetRegistry.Domain.Interfaces.Media;
 using RentifyxAssetRegistry.Infrastructure.Configuration;
 using RentifyxAssetRegistry.Infrastructure.Constants;
+using RentifyxAssetRegistry.Infrastructure.Persistence;
 using RentifyxAssetRegistry.Infrastructure.Storage;
 
 namespace RentifyxAssetRegistry.IoC;
@@ -19,6 +25,7 @@ internal static class InfrastructureDependencyInjection
     {
         services.AddJwtAuthentication(configuration);
         services.AddMediaStorage(configuration);
+        services.AddDynamoDb(configuration);
 
         return services;
     }
@@ -60,6 +67,41 @@ internal static class InfrastructureDependencyInjection
         });
 
         services.AddScoped<IMediaStorageService, S3MediaStorageService>();
+    }
+
+    private static void AddDynamoDb(this IServiceCollection services, IConfiguration configuration)
+    {
+        DynamoDbOptions options = new()
+        {
+            TableName = configuration[ConfigurationKeys.DynamoDbTableName] ?? "AssetRegistry",
+            Region = configuration[ConfigurationKeys.DynamoDbRegion]
+                ?? configuration[ConfigurationKeys.AwsRegion]
+                ?? ConfigurationKeys.DefaultAwsRegion,
+            ServiceUrl = configuration[ConfigurationKeys.DynamoDbServiceUrl]
+        };
+
+        services.AddSingleton(options);
+
+        services.AddSingleton<IAmazonDynamoDB>(_ =>
+        {
+            AmazonDynamoDBConfig clientConfig = new()
+            {
+                RegionEndpoint = RegionEndpoint.GetBySystemName(options.Region)
+            };
+
+            if (!string.IsNullOrWhiteSpace(options.ServiceUrl))
+                clientConfig.ServiceURL = options.ServiceUrl;
+
+            return new AmazonDynamoDBClient(clientConfig);
+        });
+
+        services.AddSingleton<IDynamoDBContext>(sp =>
+            new DynamoDBContextBuilder()
+                .WithDynamoDBClient(() => sp.GetRequiredService<IAmazonDynamoDB>())
+                .Build());
+
+        services.AddScoped<IAssetRepository, DynamoDbAssetRepository>();
+        services.AddScoped<ICategoryRepository, DynamoDbCategoryRepository>();
     }
 
     private static void AddJwtAuthentication(

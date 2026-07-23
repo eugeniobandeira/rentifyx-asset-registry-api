@@ -50,6 +50,25 @@ public sealed class CategoryEntity : AggregateRoot
         };
     }
 
+    /// <summary>
+    /// Reconstructs a <see cref="CategoryEntity"/> from persisted storage — used by repository
+    /// mappers hydrating an entity that already exists in DynamoDB.
+    /// </summary>
+    public static CategoryEntity FromPersistence(
+        Guid id,
+        string name,
+        Guid? parentCategoryId,
+        int depth)
+    {
+        return new CategoryEntity
+        {
+            Id = id,
+            Name = name,
+            ParentCategoryId = parentCategoryId,
+            Depth = depth
+        };
+    }
+
     public void Rename(string name)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
