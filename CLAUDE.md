@@ -19,8 +19,10 @@ but check STATE.md/ROADMAP.md before assuming something here reflects the curren
 this repo with an EF Core + Npgsql `Infrastructure` layer (`AppDbContext`, migrations, generic
 `IAddRepository<T>`/`IUnitOfWork`) and an `Example*` reference feature built against it. Both were
 removed in full — the plan's stack has no relational database, and no real feature ever depended
-on either. `05-Infrastructure` is currently empty of repository implementations; `IAssetRepository`/
-`ICategoryRepository` await their DynamoDB implementation in E-04.
+on either. `05-Infrastructure` now holds the real DynamoDB (`DynamoDbAssetRepository`/
+`DynamoDbCategoryRepository`, ADR-AR-009) and S3 (`S3MediaStorageService`) implementations, both
+shipped in E-04/F-10 and F-11 (2026-07-23). Only F-12 (Kafka consumers for owner-status sync and
+moderation verdicts) remains open in E-04 — see ROADMAP.md.
 
 ## Tech stack
 
@@ -29,7 +31,7 @@ on either. `05-Infrastructure` is currently empty of repository implementations;
 - **Cloud**: AWS DynamoDB (single-table design) · S3 · Secrets Manager · KMS (LocalStack locally, see `.specs/project/STATE.md` for current local-dev decision)
 - **Infra**: .NET Aspire (AppHost + ServiceDefaults) · Docker · Terraform · GitHub Actions
 - **Observability**: OpenTelemetry · Serilog · Scalar
-- **Messaging**: Kafka — `AssetCreated`/`AssetMediaUploaded`/`AssetPublished`/`AssetSuspended` out (DynamoDB Streams outbox); `UserSuspended`/`UserDeleted` in (from `identity-api`); moderation verdicts in (from `rentifyx-ai-services`)
+- **Messaging**: Kafka — `AssetCreated`/`AssetMediaUploaded`/`AssetPublished`/`AssetSuspended` out (poll-loop Outbox via `OutboxPublisher`, ADR-AR-010 — not DynamoDB Streams, see STATE.md for why); `UserSuspended`/`UserDeleted` in (from `identity-api`, F-12, not yet built); moderation verdicts in (from `rentifyx-ai-services`, F-12, not yet built)
 
 ## Solution structure
 
@@ -38,11 +40,11 @@ on either. `05-Infrastructure` is currently empty of repository implementations;
   01-AppHost/         – .NET Aspire orchestration (starts API + future LocalStack)
   02-ServiceDefaults/ – OTel traces/metrics, health checks, service discovery
 02-src/
-  01-Api/             – Minimal API endpoints, middlewares, extensions
+  01-Api/             – Minimal API endpoints, middlewares, extensions, Messaging/ (OutboxPublisher)
   02-Application/     – Use cases via IHandler<TRequest,TResponse>, FluentValidation validators
   03-Domain/          – Entities, value objects, domain events, repository contracts (no framework deps)
   04-IoC/             – DI wiring (ApplicationDependencyInjection, InfrastructureDependencyInjection)
-  05-Infrastructure/  – Repository implementations, AWS SDK adapters (DynamoDB implementation pending, E-04)
+  05-Infrastructure/  – DynamoDB repositories (Persistence/), S3 media storage (Storage/)
 03-tests/
   01-Common/          – Shared builders (Bogus)
   02-Validators/      – FluentValidation unit tests
@@ -125,7 +127,7 @@ Error codes, validation limits, and repeated string keys go in `Domain/Constants
 
 ### Enum persistence
 
-**Never persist an enum as its underlying numeric value.** Always store/serialize the string name (`"Active"`, `"PendingModeration"`), never the `int` — applies to `AssetStatus` once the DynamoDB repository lands (E-04).
+**Never persist an enum as its underlying numeric value.** Always store/serialize the string name (`"Active"`, `"PendingModeration"`), never the `int` — enforced in `AssetDynamoDbMapper`/`AssetItem.Status` (F-10).
 
 ### Endpoint pattern
 
@@ -176,12 +178,12 @@ dotnet build RentifyxAssetRegistry.slnx --configuration Release
 
 ## CI/CD
 
-GitHub Actions (`ci.yml`) triggers on PRs to `main`:
-1. **Build & Test** – restore → build Release → test
-2. **Coverage gate** – ≥80% (coverlet + ReportGenerator) — planned, not yet added (E-01)
-3. **OWASP dependency-check** – NuGet vulnerability scan, fails on CVSS ≥ 7 — planned (E-01)
-4. **Trivy container scan** – blocks on CRITICAL/HIGH — planned (E-01)
-5. **Branch protection** – CI green + 1 PR review before merge to main — planned (E-01)
+GitHub Actions (`ci.yml`) triggers on PRs to `master`:
+1. **Build & Test** – restore → build Release → test — DONE
+2. **Coverage gate** – ≥80% (coverlet + ReportGenerator) — intentionally NOT added, see STATE.md D-002
+3. **OWASP dependency-check** – NuGet vulnerability scan, fails on CVSS ≥ 7 — DONE, but **currently red on `master`** (STATE.md D-003/G-004): unpatched-upstream CVEs in `Google.Protobuf`/`Nerdbank.MessagePack`/`OpenTelemetry` and a CPE false-positive on `JsonPointer.Net`. A suppression file is owed, not yet written — check STATE.md before assuming a red PR check here means your change broke something.
+4. **Trivy container scan** – blocks on CRITICAL/HIGH — DONE
+5. **Branch protection** – `master` requires `build-and-test` green + 1 PR review before merge — DONE (`enforce_admins` is off, so admin override is possible when the gate itself is the blocker, not the change under review — use sparingly, see STATE.md D-003 for the one precedent)
 
 ## Security rules
 

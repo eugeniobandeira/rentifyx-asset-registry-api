@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M4 IN PROGRESS — F-10 DynamoDB Repository & Outbox and F-11 S3 Media Storage both DONE (2026-07-23); F-12 Cross-Service Integration not started. M1-M3 complete.
-**Status:** F-10/F-11 landed 2026-07-23 (181/181 tests green across the full solution); F-12 (owner-status Kafka consumer, moderation-verdict Kafka consumer) is the only remaining E-04 work before M4 closes.
+**Current Milestone:** M4 IN PROGRESS — F-10 DynamoDB Repository & Outbox and F-11 S3 Media Storage both DONE and merged to `master` (2026-07-23, PR #9/#10); F-12 Cross-Service Integration not started. M1-M3 complete.
+**Status:** F-10/F-11 merged 2026-07-23 (182/182 tests green on `master`); F-12 (owner-status Kafka consumer, moderation-verdict Kafka consumer) is the only remaining E-04 work before M4 closes. **CI note:** `master`'s required `build-and-test` check is currently red on the OWASP dependency-check step — both merges needed an admin override (STATE.md D-003/G-004). Every future PR will fail the same check until a suppression file is authored or upstream ships fixes for the flagged CVEs; don't be surprised by red CI on unrelated future PRs.
 
 ---
 
