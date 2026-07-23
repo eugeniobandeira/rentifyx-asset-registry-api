@@ -7,6 +7,9 @@ public static class ConfigurationKeys
     public const string JwtAudience = "Jwt:Audience";
     public const string AwsRegion = "AWS:Region";
     public const string AwsSecretsManagerSecretName = "AWS:SecretsManager:SecretName";
+    public const string AwsS3BucketName = "AWS:S3:BucketName";
+    public const string AwsS3PresignedUrlExpirySeconds = "AWS:S3:PresignedUrlExpirySeconds";
+    public const string AwsS3ServiceUrl = "AWS:S3:ServiceUrl";
 
     public const string DynamoDbTableName = "AWS:DynamoDb:TableName";
     public const string DynamoDbRegion = "AWS:DynamoDb:Region";
