@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\04-IoC\RentifyxAssetRegistry.IoC\RentifyxAssetRegistry.IoC.csproj" />
+    <ProjectReference Include="..\..\05-Infrastructure\RentifyxAssetRegistry.Infrastructure\RentifyxAssetRegistry.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\01-aspire\02-ServiceDefaults\RentifyxAssetRegistry.ServiceDefaults\RentifyxAssetRegistry.ServiceDefaults.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -19,5 +20,6 @@
     <PackageReference Include="ErrorOr" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
     <PackageReference Include="Confluent.Kafka" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" />
   </ItemGroup>
 </Project>
