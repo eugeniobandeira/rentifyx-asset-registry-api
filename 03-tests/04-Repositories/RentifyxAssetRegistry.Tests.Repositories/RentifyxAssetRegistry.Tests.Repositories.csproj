@@ -8,6 +8,8 @@
     <ProjectReference Include="..\..\01-Common\RentifyxAssetRegistry.Tests.Common\RentifyxAssetRegistry.Tests.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" />
+    <PackageReference Include="Testcontainers.LocalStack" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio">
       <PrivateAssets>all</PrivateAssets>
