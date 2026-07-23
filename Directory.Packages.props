@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup Label="Application">
     <PackageVersion Include="ErrorOr" Version="2.0.1" />
@@ -30,20 +31,25 @@
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.4.6" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.6.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.6.0" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.3" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.2" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.17.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.17.0" />
   </ItemGroup>
   <ItemGroup Label="Infrastructure">
     <PackageVersion Include="AWSSDK.SecretsManager" Version="4.0.5.8" />
     <PackageVersion Include="AWSSDK.DynamoDBv2" Version="4.0.21.7" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.8" />
   </ItemGroup>
   <ItemGroup Label="Messaging">
     <PackageVersion Include="Confluent.Kafka" Version="2.15.0" />
-    <PackageVersion Include="Aspire.Hosting.Kafka" Version="9.3.1" />
+    <PackageVersion Include="Aspire.Hosting.Kafka" Version="13.4.6" />
+  </ItemGroup>
+  <ItemGroup Label="Transitive pins (OWASP dependency-check CVSS>=7 fixes)">
+    <PackageVersion Include="Google.Protobuf" Version="3.35.1" />
+    <PackageVersion Include="Nerdbank.MessagePack" Version="1.2.36" />
+    <PackageVersion Include="JsonPointer.Net" Version="7.0.1" />
   </ItemGroup>
   <ItemGroup Label="Security">
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.9" />
