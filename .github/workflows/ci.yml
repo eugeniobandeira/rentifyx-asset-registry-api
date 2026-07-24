@@ -38,6 +38,7 @@ jobs:
           args: >
             --failOnCVSS 7
             --enableRetired
+            --suppression dependency-check-suppressions.xml
 
       - name: Upload dependency-check report
         if: always()
