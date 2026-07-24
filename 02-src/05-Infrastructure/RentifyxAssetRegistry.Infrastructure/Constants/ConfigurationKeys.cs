@@ -16,6 +16,8 @@ public static class ConfigurationKeys
     public const string DynamoDbServiceUrl = "AWS:DynamoDb:ServiceUrl";
 
     public const string KafkaBootstrapServers = "Kafka:BootstrapServers";
+    public const string KafkaOwnerStatusConsumerGroupId = "Kafka:OwnerStatusConsumer:GroupId";
+    public const string KafkaModerationVerdictConsumerGroupId = "Kafka:ModerationVerdictConsumer:GroupId";
 
     public const string OutboxPollIntervalSeconds = "Outbox:PollIntervalSeconds";
     public const string OutboxBatchSize = "Outbox:BatchSize";
