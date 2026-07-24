@@ -14,6 +14,8 @@ using RentifyxAssetRegistry.Application.Features.Assets.Handlers.ConfirmMediaUpl
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Create;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Create.Request;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.Create.Validator;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.GetById;
+using RentifyxAssetRegistry.Application.Features.Assets.Handlers.GetById.Request;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload.Request;
 using RentifyxAssetRegistry.Application.Features.Assets.Handlers.RequestMediaUpload.Validator;
@@ -41,6 +43,8 @@ internal static class ApplicationDependencyInjection
     {
         services.AddScoped<IValidator<CreateAssetRequest>, CreateAssetValidator>();
         services.AddScoped<IHandler<CreateAssetRequest, CreateAssetResponse>, CreateAssetHandler>();
+
+        services.AddScoped<IHandler<GetAssetByIdRequest, GetAssetByIdResponse>, GetAssetByIdHandler>();
 
         services.AddScoped<IValidator<RequestMediaUploadRequest>, RequestMediaUploadValidator>();
         services.AddScoped<IHandler<RequestMediaUploadRequest, RequestMediaUploadResponse>, RequestMediaUploadHandler>();
