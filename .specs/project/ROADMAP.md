@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M4 DONE (F-10/F-11/F-12 merged, fully verified). M5 IN PROGRESS — F-13 Minimal API Endpoints built (2026-07-24, pending PR/merge), Security Hardening and API Docs still PLANNED.
-**Status:** F-13 wires 10 HTTP endpoints (Assets: Create/GetById/Search/RequestMediaUpload/ConfirmMediaUpload/SubmitForModeration/AdminReview; Categories: Create/Update/List) onto the existing Application handlers, all `AllowAnonymous` — JWT-claims-derived auth is explicitly Security Hardening's job, not this feature's. Built a missing `GetAssetByIdHandler` and fixed a real `ErrorType.Forbidden`→500 gap in `ErrorOrExtensions`. 164/164 non-container + 11/11 new Integration tests green. **CI note:** `master`'s required `build-and-test` check is currently red on the OWASP dependency-check step — every PR needs an admin override until a suppression file is authored (STATE.md D-003/G-004); don't be surprised by red CI on F-13's PR either.
+**Current Milestone:** M4 DONE (F-10/F-11/F-12 merged, fully verified). M5 IN PROGRESS — F-13 Minimal API Endpoints built (2026-07-24, pending PR/merge); Security Hardening partially done (security headers + request size limiting, 2026-07-24, not yet merged — role-based authZ still PLANNED); API Docs still PLANNED.
+**Status:** F-13 wires 10 HTTP endpoints (Assets: Create/GetById/Search/RequestMediaUpload/ConfirmMediaUpload/SubmitForModeration/AdminReview; Categories: Create/Update/List) onto the existing Application handlers, all `AllowAnonymous` — JWT-claims-derived auth is explicitly Security Hardening's job, not this feature's. Built a missing `GetAssetByIdHandler` and fixed a real `ErrorType.Forbidden`→500 gap in `ErrorOrExtensions`. 164/164 non-container + 11/11 new Integration tests green. Security Hardening's headers/request-size-limit slice (worktree `agent-af0f1d80d81bc9034`) adds `SecurityHeadersMiddleware`, `app.UseHsts()`, and `RequestSizeLimitMiddleware`/Kestrel `MaxRequestBodySize`, both gated/configured per env — see this section below and STATE.md for detail; role-based admin authZ deliberately untouched. **CI note:** `master`'s required `build-and-test` check is currently red on the OWASP dependency-check step — every PR needs an admin override until a suppression file is authored (STATE.md D-003/G-004); don't be surprised by red CI on either feature's PR.
 
 ---
 
@@ -126,9 +126,12 @@
 - AdminReview — DONE
 - All endpoints `AllowAnonymous` (real admin-gating is Security Hardening's job, not this feature's — `IsAdmin`/`OwnerId` still caller-supplied body fields, unchanged from E-03/E-04)
 
-**Security Hardening** — PLANNED
+**Security Hardening** — IN PROGRESS
 
-- Rate limiting (IP + user), security headers (HSTS/CSP/etc.), request size limiting, role-based authorization for admin endpoints
+- Rate limiting (IP + user) — DONE (fixed-window, `RateLimitExtension`, pre-existing before this slice)
+- Security headers (HSTS/CSP/etc.) — DONE (2026-07-24): `SecurityHeadersMiddleware` sets `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` on every response plus a strict `Content-Security-Policy` (`default-src 'none'`) outside Development (Scalar's docs UI is HTML and only mapped in Development); `app.UseHsts()` wired behind the same `!IsDevelopment()` gate as `UseHttpsRedirection`
+- Request size limiting — DONE (2026-07-24): `RequestSizeLimitMiddleware` + Kestrel `MaxRequestBodySize`, both driven by `RequestSizeLimit:MaxBytes` (default 1 MB — this API only receives JSON metadata, file uploads go direct-to-S3 per ADR-AR-005)
+- Role-based authorization for admin endpoints — still PLANNED, explicitly out of scope for this slice (JWT-claims wiring, `.RequireAuthorization()`, `IsAdmin`/`OwnerId` handling untouched)
 
 **API Docs** — PLANNED
 
