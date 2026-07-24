@@ -27,4 +27,15 @@ public static class AssetMapper
 
     public static AssetModerationResponse ToModerationResponse(AssetEntity entity)
         => new(entity.Id, entity.Status);
+
+    public static GetAssetByIdResponse ToGetByIdResponse(AssetEntity entity)
+        => new(
+            entity.Id,
+            entity.Title.Value,
+            entity.Description.Value,
+            entity.Price.Amount,
+            entity.CategoryId,
+            entity.OwnerId,
+            entity.Status,
+            entity.CreatedAt);
 }
