@@ -11,10 +11,6 @@ using RentifyxAssetRegistry.Domain.Constants;
 namespace RentifyxAssetRegistry.Api.Messaging;
 
 /// <summary>
-/// Consumes rentifyx-ai-services' asset-media-moderated topic and calls the existing F-09
-/// ApplyModerationVerdictHandler per message. See
-/// .specs/features/e04-f12-cross-service-integration/design.md.
-///
 /// The handler's own idempotent-replay behavior (asset not currently PendingModeration) makes
 /// redelivered/duplicate messages safe without any consumer-side dedup.
 /// </summary>
@@ -105,10 +101,11 @@ public sealed class ModerationVerdictConsumer(
             evt.AssetId, handlerResult.FirstError.Description);
     }
 
-    public override Task StopAsync(CancellationToken cancellationToken)
+    public override async Task StopAsync(CancellationToken cancellationToken)
     {
-        consumer.Close();
+        // See OwnerStatusConsumer.StopAsync: cancel and let the Consume() loop exit before Close().
+        await base.StopAsync(cancellationToken);
 
-        return base.StopAsync(cancellationToken);
+        consumer.Close();
     }
 }

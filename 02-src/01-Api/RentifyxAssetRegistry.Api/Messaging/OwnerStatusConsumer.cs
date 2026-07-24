@@ -8,10 +8,6 @@ using RentifyxAssetRegistry.Infrastructure.Persistence;
 namespace RentifyxAssetRegistry.Api.Messaging;
 
 /// <summary>
-/// Consumes identity-api's user-lifecycle-events topic (UserSuspended/UserAccountDeleted) and
-/// upserts the local DynamoDB owner-status cache that DynamoDbOwnerStatusValidator reads. See
-/// .specs/features/e04-f12-cross-service-integration/design.md.
-///
 /// Malformed/unrecognized messages are poison pills: logged and committed, never retried forever.
 /// DynamoDB write failures are NOT committed, letting Kafka redeliver on the next poll.
 /// </summary>
@@ -120,10 +116,13 @@ public sealed class OwnerStatusConsumer(
         return (payload.UserId, DeletedReason, payload.OccurredAt);
     }
 
-    public override Task StopAsync(CancellationToken cancellationToken)
+    public override async Task StopAsync(CancellationToken cancellationToken)
     {
-        consumer.Close();
+        // Close() while another thread is blocked inside Consume() can hang waiting for a clean
+        // group-leave the stuck poll loop never yields to, so cancel and let ExecuteAsync's loop
+        // exit first (base.StopAsync signals the stoppingToken and awaits it).
+        await base.StopAsync(cancellationToken);
 
-        return base.StopAsync(cancellationToken);
+        consumer.Close();
     }
 }
