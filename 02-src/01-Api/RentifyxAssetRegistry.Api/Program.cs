@@ -42,6 +42,9 @@ try
     builder.Services.AddProblemDetails();
     builder.Services.AddOutboxPublishing(builder.Configuration);
     builder.Services.AddHostedService<OutboxPublisher>();
+    builder.Services.AddCrossServiceConsuming(builder.Configuration);
+    builder.Services.AddHostedService<OwnerStatusConsumer>();
+    builder.Services.AddHostedService<ModerationVerdictConsumer>();
 
     WebApplication app = builder.Build();
 
