@@ -3,6 +3,7 @@ using RentifyxAssetRegistry.Api.Extensions;
 using RentifyxAssetRegistry.Api.Messaging;
 using RentifyxAssetRegistry.Api.Middlewares;
 using RentifyxAssetRegistry.Infrastructure.Configuration;
+using RentifyxAssetRegistry.Infrastructure.Constants;
 using RentifyxAssetRegistry.IoC;
 using RentifyxAssetRegistry.ServiceDefaults;
 using Serilog;
@@ -18,6 +19,13 @@ try
     builder.AddServiceDefaults();
 
     builder.Configuration.AddSecretsManager(builder.Configuration);
+
+    builder.WebHost.ConfigureKestrel(kestrelOptions =>
+    {
+        kestrelOptions.Limits.MaxRequestBodySize = builder.Configuration.GetValue(
+            ConfigurationKeys.RequestSizeLimitMaxBytes,
+            RequestSizeLimitExtension.DefaultMaxRequestBodyBytes);
+    });
 
     builder.Host.UseSerilog((context, services, configuration) => configuration
         .ReadFrom.Configuration(context.Configuration)
@@ -37,6 +45,7 @@ try
     builder.Services.AddCorsPolicy(builder.Configuration);
     builder.Services.AddVersioning();
     builder.Services.AddRateLimiting(builder.Configuration);
+    builder.Services.AddRequestSizeLimiting(builder.Configuration);
     builder.Services.AddEndpoints();
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
@@ -52,6 +61,7 @@ try
 
     app.UseExceptionHandler();
     app.UseSecurityHeaders();
+    app.UseRequestSizeLimiting();
     app.UseCorrelationId();
     app.UseRateLimiting();
     app.UseSerilogRequestLogging(options =>

@@ -23,6 +23,8 @@ public static class ConfigurationKeys
     public const string OutboxBatchSize = "Outbox:BatchSize";
     public const string OutboxMaxRetries = "Outbox:MaxRetries";
 
+    public const string RequestSizeLimitMaxBytes = "RequestSizeLimit:MaxBytes";
+
     public const string DefaultAwsRegion = "sa-east-1";
     public const string TestingEnvironment = "Testing";
 }
