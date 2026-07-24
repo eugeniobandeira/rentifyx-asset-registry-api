@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M4 CODE-COMPLETE, pending PR/merge + integration-test verification — F-10, F-11, and F-12 all built. M1-M3 complete.
-**Status:** F-12 Cross-Service Integration (2026-07-24) built end-to-end on `feat/e04-f12-cross-service-integration`: `OwnerStatusConsumer` + `ModerationVerdictConsumer`, `DynamoDbOwnerStatusValidator` (fail-closed, ADR-AR-011), 162/162 non-container tests green. **Not yet verified:** the new Testcontainers-based integration tests (Repositories layer) couldn't run locally (no Docker this session) — see STATE.md G-006. **CI note:** `master`'s required `build-and-test` check is currently red on the OWASP dependency-check step — F-10/F-11 both needed an admin override (STATE.md D-003/G-004). Every future PR will fail the same check until a suppression file is authored or upstream ships fixes for the flagged CVEs; don't be surprised by red CI on F-12's PR either.
+**Current Milestone:** M4 DONE (F-10/F-11/F-12 merged, fully verified). M5 IN PROGRESS — F-13 Minimal API Endpoints built (2026-07-24, pending PR/merge), Security Hardening and API Docs still PLANNED.
+**Status:** F-13 wires 10 HTTP endpoints (Assets: Create/GetById/Search/RequestMediaUpload/ConfirmMediaUpload/SubmitForModeration/AdminReview; Categories: Create/Update/List) onto the existing Application handlers, all `AllowAnonymous` — JWT-claims-derived auth is explicitly Security Hardening's job, not this feature's. Built a missing `GetAssetByIdHandler` and fixed a real `ErrorType.Forbidden`→500 gap in `ErrorOrExtensions`. 164/164 non-container + 11/11 new Integration tests green. **CI note:** `master`'s required `build-and-test` check is currently red on the OWASP dependency-check step — every PR needs an admin override until a suppression file is authored (STATE.md D-003/G-004); don't be surprised by red CI on F-13's PR either.
 
 ---
 
@@ -119,11 +119,12 @@
 
 ### Features
 
-**Minimal API Endpoints** — PLANNED
+**Minimal API Endpoints** — DONE (2026-07-24, see `.specs/features/e05-f13-minimal-api-endpoints/`)
 
-- Assets: Create, GetById, Search, RequestMediaUpload, ConfirmMediaUpload
-- Categories: Create/Update/List (admin-gated where applicable)
-- AdminReview (admin-only)
+- Assets: Create, GetById, Search, RequestMediaUpload, ConfirmMediaUpload, SubmitForModeration — DONE
+- Categories: Create/Update/List — DONE
+- AdminReview — DONE
+- All endpoints `AllowAnonymous` (real admin-gating is Security Hardening's job, not this feature's — `IsAdmin`/`OwnerId` still caller-supplied body fields, unchanged from E-03/E-04)
 
 **Security Hardening** — PLANNED
 
