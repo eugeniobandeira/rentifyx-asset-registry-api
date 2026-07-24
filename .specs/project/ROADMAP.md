@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M4 IN PROGRESS — F-10 DynamoDB Repository & Outbox and F-11 S3 Media Storage both DONE and merged to `master` (2026-07-23, PR #9/#10); F-12 Cross-Service Integration not started. M1-M3 complete.
-**Status:** F-10/F-11 merged 2026-07-23 (182/182 tests green on `master`); F-12 (owner-status Kafka consumer, moderation-verdict Kafka consumer) is the only remaining E-04 work before M4 closes. **CI note:** `master`'s required `build-and-test` check is currently red on the OWASP dependency-check step — both merges needed an admin override (STATE.md D-003/G-004). Every future PR will fail the same check until a suppression file is authored or upstream ships fixes for the flagged CVEs; don't be surprised by red CI on unrelated future PRs.
+**Current Milestone:** M4 CODE-COMPLETE, pending PR/merge + integration-test verification — F-10, F-11, and F-12 all built. M1-M3 complete.
+**Status:** F-12 Cross-Service Integration (2026-07-24) built end-to-end on `feat/e04-f12-cross-service-integration`: `OwnerStatusConsumer` + `ModerationVerdictConsumer`, `DynamoDbOwnerStatusValidator` (fail-closed, ADR-AR-011), 162/162 non-container tests green. **Not yet verified:** the new Testcontainers-based integration tests (Repositories layer) couldn't run locally (no Docker this session) — see STATE.md G-006. **CI note:** `master`'s required `build-and-test` check is currently red on the OWASP dependency-check step — F-10/F-11 both needed an admin override (STATE.md D-003/G-004). Every future PR will fail the same check until a suppression file is authored or upstream ships fixes for the flagged CVEs; don't be surprised by red CI on F-12's PR either.
 
 ---
 
@@ -104,11 +104,11 @@
 - `S3MediaStorageService` real presigned-URL + `ValidateUploadAsync` implementation via AWSSDK.S3, `assets/{ownerId}/{assetId}/{filename}` key convention confirmed cross-repo against `rentifyx-ai-services`'s `AssetKeyConventionFilter` (STATE.md G-001 resolved) — DONE
 - Terraform S3 bucket (CORS, presigned-URL-only bucket policy, multipart cleanup lifecycle) — still PLANNED, deferred to E-06 (`iac/` has no module scaffolding for any resource yet, documented as a Known Gap in F-11's spec.md)
 
-**Cross-Service Integration** — PLANNED
+**Cross-Service Integration** — DONE (2026-07-24, code-complete; integration-test run pending, see STATE.md G-006)
 
-- Kafka consumer for `UserSuspended`/`UserDeleted` from `identity-api`, local owner-status cache
-- Fail-open vs. fail-closed decision for stale cache (ADR-AR-011) — recommend fail-closed, needs confirmation before implementation
-- Kafka consumer `IHostedService` for `AssetMediaModerated` from `rentifyx-ai-services`, calling F-09's `ApplyModerationVerdictHandler` (plan T-076, ADR-AR-008)
+- `OwnerStatusConsumer`: Kafka consumer for identity-api's `user-lifecycle-events` topic (`UserSuspended`/`UserAccountDeleted` — real event name, not the `UserDeleted` earlier assumed), DynamoDB-backed local owner-status cache (`DynamoDbOwnerStatusValidator`) — DONE
+- Fail-closed decision for stale/missing cache confirmed by user, ADR-AR-011 written — DONE. Cold-start backfill strategy still open (STATE.md G-005)
+- `ModerationVerdictConsumer`: Kafka consumer `BackgroundService` for `asset-media-moderated` from `rentifyx-ai-services`, calling F-09's `ApplyModerationVerdictHandler` (plan T-076, ADR-AR-008) — DONE
 
 ---
 

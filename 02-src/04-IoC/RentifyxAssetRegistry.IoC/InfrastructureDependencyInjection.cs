@@ -102,6 +102,8 @@ internal static class InfrastructureDependencyInjection
 
         services.AddScoped<IAssetRepository, DynamoDbAssetRepository>();
         services.AddScoped<ICategoryRepository, DynamoDbCategoryRepository>();
+        services.AddScoped<IOwnerStatusValidator, DynamoDbOwnerStatusValidator>();
+        services.AddScoped<IOwnerStatusCacheWriter, DynamoDbOwnerStatusValidator>();
     }
 
     private static void AddJwtAuthentication(

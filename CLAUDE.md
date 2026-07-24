@@ -178,12 +178,12 @@ dotnet build RentifyxAssetRegistry.slnx --configuration Release
 
 ## CI/CD
 
-GitHub Actions (`ci.yml`) triggers on PRs to `main`:
+GitHub Actions (`ci.yml`) triggers on `push` and `pull_request` to `main` (unlike `identity-api`, which is PR-only — direct push isn't blocked here at the workflow level, only by branch protection):
 1. **Build & Test** – restore → build Release → test — DONE
 2. **Coverage gate** – ≥80% (coverlet + ReportGenerator) — intentionally NOT added, see STATE.md D-002
 3. **OWASP dependency-check** – NuGet vulnerability scan, fails on CVSS ≥ 7 — DONE, but **currently red on `main`** (STATE.md D-003/G-004): unpatched-upstream CVEs in `Google.Protobuf`/`Nerdbank.MessagePack`/`OpenTelemetry` and a CPE false-positive on `JsonPointer.Net`. A suppression file is owed, not yet written — check STATE.md before assuming a red PR check here means your change broke something.
 4. **Trivy container scan** – blocks on CRITICAL/HIGH — DONE
-5. **Branch protection** – `main` requires `build-and-test` green + 1 PR review before merge — DONE (`enforce_admins` is off, so admin override is possible when the gate itself is the blocker, not the change under review — use sparingly, see STATE.md D-003 for the one precedent)
+5. **Branch protection** – `main` requires `build-and-test` green + 1 PR review before merge — DONE, replicated from `master` when the default branch was renamed to `main` (2026-07-23). `enforce_admins` is off, so admin override is possible when the gate itself is the blocker, not the change under review — use sparingly, see STATE.md D-003 and PR #11 (Microsoft.OpenApi CVE pin) for precedent
 
 ## Security rules
 

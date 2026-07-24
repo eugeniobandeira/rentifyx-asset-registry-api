@@ -29,6 +29,7 @@ public static class DynamoDbKeys
     public const string AssetType = "Asset";
     public const string CategoryType = "Category";
     public const string OutboxType = "Outbox";
+    public const string OwnerStatusType = "OwnerStatus";
 
     // Key prefixes.
     public const string AssetPrefix = "ASSET#";
@@ -39,6 +40,12 @@ public static class DynamoDbKeys
     public const string OutboxPrefix = "OUTBOX#";
     public const string OutboxStatusPrefix = "OUTBOX_STATUS#";
     public const string CategoryListValue = "CATEGORY_LIST";
+
+    // OwnerStatus item — deliberately a distinct prefix from OwnerPrefix, which is already
+    // AssetItem's GSI1 owner-index key for a different purpose; reusing it here would collide
+    // PKs across item types in this single table.
+    public const string OwnerStatusPrefix = "OWNERSTATUS#";
+    public const string MetadataSortKey = "METADATA";
 
     public static string AssetKey(Guid id) => $"{AssetPrefix}{id}";
 
@@ -62,4 +69,6 @@ public static class DynamoDbKeys
     public static string OutboxStatusKey(string status) => $"{OutboxStatusPrefix}{status}";
 
     public static string OutboxSortKey(DateTime createdAtUtc, Guid id) => $"{createdAtUtc:o}#{id}";
+
+    public static string OwnerStatusKey(Guid ownerId) => $"{OwnerStatusPrefix}{ownerId}";
 }
