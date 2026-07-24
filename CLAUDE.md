@@ -21,8 +21,11 @@ this repo with an EF Core + Npgsql `Infrastructure` layer (`AppDbContext`, migra
 removed in full — the plan's stack has no relational database, and no real feature ever depended
 on either. `05-Infrastructure` now holds the real DynamoDB (`DynamoDbAssetRepository`/
 `DynamoDbCategoryRepository`, ADR-AR-009) and S3 (`S3MediaStorageService`) implementations, both
-shipped in E-04/F-10 and F-11 (2026-07-23). Only F-12 (Kafka consumers for owner-status sync and
-moderation verdicts) remains open in E-04 — see ROADMAP.md.
+shipped in E-04/F-10 and F-11 (2026-07-23). **F-12 (Kafka consumers for owner-status sync and
+moderation verdicts) is also done** — merged via PR #12 (2026-07-24), `OwnerStatusConsumer` and
+`ModerationVerdictConsumer` are both implemented in `02-src/01-Api/.../Messaging/`, and the full
+`04-Repositories` integration suite (29/29) is green — closing out E-04/M4. See ROADMAP.md for
+what's active now (M5).
 
 ## Tech stack
 
@@ -31,7 +34,7 @@ moderation verdicts) remains open in E-04 — see ROADMAP.md.
 - **Cloud**: AWS DynamoDB (single-table design) · S3 · Secrets Manager · KMS (LocalStack locally, see `.specs/project/STATE.md` for current local-dev decision)
 - **Infra**: .NET Aspire (AppHost + ServiceDefaults) · Docker · Terraform · GitHub Actions
 - **Observability**: OpenTelemetry · Serilog · Scalar
-- **Messaging**: Kafka — `AssetCreated`/`AssetMediaUploaded`/`AssetPublished`/`AssetSuspended` out (poll-loop Outbox via `OutboxPublisher`, ADR-AR-010 — not DynamoDB Streams, see STATE.md for why); `UserSuspended`/`UserDeleted` in (from `identity-api`, F-12, not yet built); moderation verdicts in (from `rentifyx-ai-services`, F-12, not yet built)
+- **Messaging**: Kafka — `AssetCreated`/`AssetMediaUploaded`/`AssetPublished`/`AssetSuspended` out (poll-loop Outbox via `OutboxPublisher`, ADR-AR-010 — not DynamoDB Streams, see STATE.md for why); `UserSuspended`/`UserAccountDeleted` in via `OwnerStatusConsumer` (from `identity-api`'s `user-lifecycle-events` topic — real event name confirmed as `UserAccountDeleted`, not the `UserDeleted` this repo's docs originally assumed) and moderation verdicts in via `ModerationVerdictConsumer` (from `rentifyx-ai-services`' `asset-media-moderated` topic, `SchemaVersion=2`) — both built and merged in F-12 (PR #12, 2026-07-24)
 
 ## Solution structure
 
