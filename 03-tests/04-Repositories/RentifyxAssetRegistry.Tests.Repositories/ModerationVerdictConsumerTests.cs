@@ -27,7 +27,7 @@ namespace RentifyxAssetRegistry.Tests.Repositories;
 /// the real F-09 ApplyModerationVerdictHandler end-to-end. See
 /// .specs/features/e04-f12-cross-service-integration/design.md.
 /// </summary>
-[Collection(OutboxFixtureGroup.Name)]
+[Collection(CrossServiceFixtureGroup.Name)]
 public sealed class ModerationVerdictConsumerTests(LocalStackFixture dynamoFixture, KafkaFixture kafkaFixture)
 {
     [Fact]

@@ -35,3 +35,13 @@ public sealed class OutboxFixtureGroup : ICollectionFixture<LocalStackFixture>, 
 {
     public const string Name = "Outbox";
 }
+
+// Separate collection from OutboxFixtureGroup: F-12's consumer tests seed AssetEntity via the real
+// DynamoDbAssetRepository.SaveAsync, which writes a pending Outbox entry as a side effect. Sharing
+// LocalStackFixture with OutboxPublisherTests let that leftover entry get picked up and published
+// by OutboxPublisherTests' own OutboxPublisher instance, corrupting its message-key assertion.
+[CollectionDefinition(Name)]
+public sealed class CrossServiceFixtureGroup : ICollectionFixture<LocalStackFixture>, ICollectionFixture<KafkaFixture>
+{
+    public const string Name = "CrossService";
+}

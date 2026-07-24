@@ -16,7 +16,7 @@ namespace RentifyxAssetRegistry.Tests.Repositories;
 /// Drives OwnerStatusConsumer against a real Kafka broker and LocalStack DynamoDB. See
 /// .specs/features/e04-f12-cross-service-integration/design.md.
 /// </summary>
-[Collection(OutboxFixtureGroup.Name)]
+[Collection(CrossServiceFixtureGroup.Name)]
 public sealed class OwnerStatusConsumerTests(LocalStackFixture dynamoFixture, KafkaFixture kafkaFixture)
 {
     [Fact]

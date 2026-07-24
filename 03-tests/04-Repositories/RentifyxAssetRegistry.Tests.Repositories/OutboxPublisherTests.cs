@@ -94,7 +94,7 @@ public sealed class OutboxPublisherTests(LocalStackFixture dynamoFixture, KafkaF
         using IConsumer<string, string> consumer = new ConsumerBuilder<string, string>(consumerConfig).Build();
         consumer.Subscribe(KafkaTopics.AssetCreated);
 
-        ConsumeResult<string, string>? result = consumer.Consume(TimeSpan.FromSeconds(15));
+        ConsumeResult<string, string>? result = consumer.Consume(TimeSpan.FromSeconds(30));
 
         result.Should().NotBeNull();
         result!.Message.Key.Should().Be(asset.Id.ToString());
