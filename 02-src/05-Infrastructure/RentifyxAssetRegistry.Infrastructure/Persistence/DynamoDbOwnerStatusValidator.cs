@@ -8,14 +8,7 @@ using RentifyxAssetRegistry.Infrastructure.Persistence.Mappers;
 namespace RentifyxAssetRegistry.Infrastructure.Persistence;
 
 /// <summary>
-/// DynamoDB-backed implementation of the owner-status cache described in
-/// .specs/features/e04-f12-cross-service-integration/design.md. Serves both the Domain-facing read
-/// contract (IOwnerStatusValidator, consumed by CreateAssetHandler) and the Infrastructure write
-/// contract (IOwnerStatusCacheWriter, consumed by OwnerStatusConsumer) from one class — one item
-/// type, no need for a second DynamoDB client wrapper.
-///
-/// Fail-closed by design: an owner with no cache entry (never synced, or the event hasn't arrived
-/// yet) is treated as NOT active. Confirmed decision — see spec.md's Handler/Service Logic section.
+/// Fail-closed by design: an owner with no cache entry is treated as NOT active.
 /// </summary>
 public sealed class DynamoDbOwnerStatusValidator(
     IDynamoDBContext context,
