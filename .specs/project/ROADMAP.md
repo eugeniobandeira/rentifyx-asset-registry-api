@@ -1,6 +1,6 @@
 # Roadmap
 
-**Current Milestone:** M4 DONE (F-10/F-11/F-12 merged, fully verified). M5 IN PROGRESS — F-13 Minimal API Endpoints built (2026-07-24, pending PR/merge), Security Hardening and API Docs still PLANNED.
+**Current Milestone:** M4 DONE (F-10/F-11/F-12 merged, fully verified). M5 IN PROGRESS — F-13 Minimal API Endpoints and API Docs built (2026-07-24), Security Hardening still PLANNED.
 **Status:** F-13 wires 10 HTTP endpoints (Assets: Create/GetById/Search/RequestMediaUpload/ConfirmMediaUpload/SubmitForModeration/AdminReview; Categories: Create/Update/List) onto the existing Application handlers, all `AllowAnonymous` — JWT-claims-derived auth is explicitly Security Hardening's job, not this feature's. Built a missing `GetAssetByIdHandler` and fixed a real `ErrorType.Forbidden`→500 gap in `ErrorOrExtensions`. 164/164 non-container + 11/11 new Integration tests green. **CI note:** `master`'s required `build-and-test` check is currently red on the OWASP dependency-check step — every PR needs an admin override until a suppression file is authored (STATE.md D-003/G-004); don't be surprised by red CI on F-13's PR either.
 
 ---
@@ -130,9 +130,9 @@
 
 - Rate limiting (IP + user), security headers (HSTS/CSP/etc.), request size limiting, role-based authorization for admin endpoints
 
-**API Docs** — PLANNED
+**API Docs** — DONE (2026-07-24)
 
-- Scalar UI + OpenAPI 3.1, example bodies, XML doc comments
+- Scalar UI + OpenAPI 3.1, example bodies, XML doc comments — DONE. Fixed stale "Clean Architecture Template" document description; added `AddOpenApiOperationTransformer` examples to all 10 endpoints (request-body examples on the 7 endpoints with a body, response examples via `.Produces<T>()` + transformer on the 3 GET-only endpoints); `///` XML doc comments on all 10 endpoint classes + `OpenApiExtensions`; `GenerateDocumentationFile` enabled on the Api project with CS1591 suppressed project-wide (documented tradeoff — the rest of the Api project's public surface, e.g. `Messaging`/`Extensions`/`Middlewares`, was out of scope for this feature and TreatWarningsAsErrors=true would otherwise fail the build over unrelated files)
 
 ---
 
