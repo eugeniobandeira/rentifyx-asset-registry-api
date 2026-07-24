@@ -3,6 +3,7 @@ using RentifyxAssetRegistry.Api.Extensions;
 using RentifyxAssetRegistry.Api.Messaging;
 using RentifyxAssetRegistry.Api.Middlewares;
 using RentifyxAssetRegistry.Infrastructure.Configuration;
+using RentifyxAssetRegistry.Infrastructure.Constants;
 using RentifyxAssetRegistry.IoC;
 using RentifyxAssetRegistry.ServiceDefaults;
 using Serilog;
@@ -18,6 +19,13 @@ try
     builder.AddServiceDefaults();
 
     builder.Configuration.AddSecretsManager(builder.Configuration);
+
+    builder.WebHost.ConfigureKestrel(kestrelOptions =>
+    {
+        kestrelOptions.Limits.MaxRequestBodySize = builder.Configuration.GetValue(
+            ConfigurationKeys.RequestSizeLimitMaxBytes,
+            RequestSizeLimitExtension.DefaultMaxRequestBodyBytes);
+    });
 
     builder.Host.UseSerilog((context, services, configuration) => configuration
         .ReadFrom.Configuration(context.Configuration)
@@ -37,6 +45,7 @@ try
     builder.Services.AddCorsPolicy(builder.Configuration);
     builder.Services.AddVersioning();
     builder.Services.AddRateLimiting(builder.Configuration);
+    builder.Services.AddRequestSizeLimiting(builder.Configuration);
     builder.Services.AddEndpoints();
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
@@ -51,6 +60,8 @@ try
     app.MapDefaultEndpoints();
 
     app.UseExceptionHandler();
+    app.UseSecurityHeaders();
+    app.UseRequestSizeLimiting();
     app.UseCorrelationId();
     app.UseRateLimiting();
     app.UseSerilogRequestLogging(options =>
@@ -66,7 +77,13 @@ try
         app.UseOpenApiDocumentation();
 
     if (!app.Environment.IsDevelopment())
+    {
+        // HSTS follows the same env gate as UseHttpsRedirection below - both are meaningless (and
+        // HSTS is actively wrong) over plain HTTP in local Development.
+        app.UseHsts();
         app.UseHttpsRedirection();
+    }
+
     app.UseCorsPolicy();
     app.UseAuthentication();
     app.UseAuthorization();
