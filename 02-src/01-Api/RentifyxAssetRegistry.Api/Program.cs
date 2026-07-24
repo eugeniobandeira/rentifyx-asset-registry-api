@@ -51,6 +51,7 @@ try
     app.MapDefaultEndpoints();
 
     app.UseExceptionHandler();
+    app.UseSecurityHeaders();
     app.UseCorrelationId();
     app.UseRateLimiting();
     app.UseSerilogRequestLogging(options =>
@@ -66,7 +67,13 @@ try
         app.UseOpenApiDocumentation();
 
     if (!app.Environment.IsDevelopment())
+    {
+        // HSTS follows the same env gate as UseHttpsRedirection below - both are meaningless (and
+        // HSTS is actively wrong) over plain HTTP in local Development.
+        app.UseHsts();
         app.UseHttpsRedirection();
+    }
+
     app.UseCorsPolicy();
     app.UseAuthentication();
     app.UseAuthorization();
